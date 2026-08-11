@@ -1,0 +1,9 @@
+{
+  "name": "numaru-japan-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NUMARU Japan website (static HTML prototype)",
+  "scripts": {
+    "dev": "npx serve ."
+  }
+}

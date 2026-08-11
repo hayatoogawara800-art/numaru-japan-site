@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUMARU Japan | Real Life in Japan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0f10;
+    --bg-alt:#17171a;
+    --card:#1d1d21;
+    --text:#f2f0ec;
+    --text-dim:#a9a7a2;
+    --accent:#e0433a;
+    --accent-dark:#b53129;
+    --border:#2a2a2e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Noto Sans JP','Poppins',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  h1,h2,h3,h4,.brand{font-family:'Poppins','Noto Sans JP',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1160px;margin:0 auto;padding:0 24px;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(15,15,16,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1160px;margin:0 auto;}
+  .brand{font-size:22px;font-weight:800;letter-spacing:0.5px;}
+  .brand span{color:var(--accent);}
+  nav ul{list-style:none;display:flex;gap:28px;}
+  nav a{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);transition:color .2s;}
+  nav a:hover{color:var(--accent);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
+
+  /* Hero */
+  .hero{
+    position:relative;
+    height:88vh;
+    min-height:520px;
+    display:flex;
+    align-items:flex-end;
+    background:linear-gradient(180deg, rgba(15,15,16,0.15) 0%, rgba(15,15,16,0.95) 92%),
+      url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+  }
+  .hero-content{padding:0 24px 64px;max-width:1160px;margin:0 auto;width:100%;}
+  .hero-tag{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:12px;}
+  .hero h1{font-size:56px;font-weight:800;max-width:640px;line-height:1.1;}
+  .hero p{margin-top:16px;max-width:480px;color:var(--text-dim);font-size:16px;}
+  .hero-cta{margin-top:28px;display:inline-flex;gap:14px;}
+  .btn{
+    display:inline-block;padding:14px 28px;border-radius:4px;font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;border:2px solid transparent;
+  }
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:var(--text-dim);color:var(--text);}
+  .btn-outline:hover{border-color:var(--text);}
+
+  /* Section heading */
+  .section{padding:80px 0;}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:12px;}
+  .section-head h2{font-size:32px;font-weight:800;}
+  .section-head .view-all{font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;}
+
+  /* Article grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;}
+  .card:hover{transform:translateY(-4px);}
+  .card-img{aspect-ratio:16/10;overflow:hidden;position:relative;}
+  .card-img img{width:100%;height:100%;object-fit:cover;}
+  .card-tag{
+    position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;font-size:11px;
+    font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;
+  }
+  .card-body{padding:18px 20px 22px;}
+  .card-body h3{font-size:17px;font-weight:700;margin-bottom:8px;}
+  .card-body p{font-size:14px;color:var(--text-dim);margin-bottom:10px;}
+  .card-meta{font-size:12px;color:var(--text-dim);opacity:.75;}
+
+  /* Trip generator style buttons */
+  .chip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .chip{
+    background:var(--bg-alt);border:1px solid var(--border);border-radius:6px;
+    padding:22px 16px;text-align:center;font-weight:700;font-size:14px;
+    transition:border-color .2s, background .2s;
+  }
+  .chip:hover{border-color:var(--accent);background:var(--card);}
+
+  /* CTA banner */
+  .banner{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:44px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  }
+  .banner h3{font-size:24px;font-weight:800;margin-bottom:8px;}
+  .banner p{color:var(--text-dim);max-width:480px;font-size:14px;}
+
+  /* Team */
+  .team-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;text-align:center;}
+  .team-avatar{
+    width:100%;aspect-ratio:1/1;border-radius:50%;overflow:hidden;margin-bottom:12px;
+    border:2px solid var(--border);
+  }
+  .team-avatar img{width:100%;height:100%;object-fit:cover;}
+  .team-grid h4{font-size:14px;font-weight:700;}
+
+  .profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .profile-card{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:28px;display:flex;gap:20px;align-items:flex-start;
+  }
+  .profile-card .team-avatar{width:76px;flex:none;margin-bottom:0;}
+  .profile-card h3{font-size:18px;font-weight:700;margin-bottom:6px;}
+  .profile-card .role{font-size:12px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;}
+  .profile-card p{font-size:14px;color:var(--text-dim);}
+
+  footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
+  .footer-grid h5{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:16px;}
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:10px;font-size:14px;}
+  .footer-grid li a:hover{color:var(--accent);}
+  .footer-bottom{border-top:1px solid var(--border);padding-top:24px;font-size:13px;color:var(--text-dim);text-align:center;}
+
+  @media (max-width:900px){
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .chip-grid{grid-template-columns:repeat(2,1fr);}
+    .team-grid{grid-template-columns:repeat(3,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .hero h1{font-size:38px;}
+  }
+  @media (max-width:640px){
+    nav{display:none;}
+    .nav-toggle{display:block;}
+    .grid{grid-template-columns:1fr;}
+    .chip-grid{grid-template-columns:1fr 1fr;}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .profile-grid{grid-template-columns:1fr;}
+    .profile-card{flex-direction:column;align-items:flex-start;}
+    .footer-grid{grid-template-columns:1fr;}
+    .hero{height:70vh;}
+    .hero h1{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="brand">NUMARU Japan<span>.</span></a>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="category_mockup.html">Quitting Salaryman Life</a></li>
+        <li><a href="category-food.html">Japanese Food</a></li>
+        <li><a href="category-countryside.html">Countryside</a></li>
+        <li><a href="category-vlog.html">Real Life Vlog</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Real Life in Japan</div>
+    <h1>The real Japan, seen by a 24-year-old who quit his job.</h1>
+    <p>Salaryman life, $3 meals, daily life in Tokyo, and time with grandma in the countryside. Unfiltered Japan, delivered as-is by a 24-year-old local.</p>
+    <div class="hero-cta">
+      <a href="#latest" class="btn btn-primary">Read the Latest Stories</a>
+      <a href="#about" class="btn btn-outline">About</a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+  <section class="section" id="latest">
+    <div class="section-head">
+      <h2>Latest Stories</h2>
+      <a href="category_mockup.html" class="view-all">View All →</a>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Japanese Food</span>
+          <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>What Japanese People Actually Eat for Breakfast</h3>
+          <p>A look at everyday life in Japan, one breakfast table at a time.</p>
+          <div class="card-meta">3 days ago</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Japanese Food</span>
+          <img src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>Traditional Hokkaido Food Even Japanese People Have Never Tried</h3>
+          <p>Local dishes so obscure even Hokkaido locals don't know them.</p>
+          <div class="card-meta">9 days ago</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Japanese Food</span>
+          <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>What Japanese People Actually Eat in Kyoto</h3>
+          <p>Beyond the tourist spots: the real diet of Kyoto locals.</p>
+          <div class="card-meta">2 weeks ago</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Japanese Food</span>
+          <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>Eating Everyday Japanese Food for $3 in Sendai</h3>
+          <p>A peek at how budget-conscious Japanese people really eat.</p>
+          <div class="card-meta">3 weeks ago</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Japanese Food</span>
+          <img src="https://images.unsplash.com/photo-1519984388953-d2be92e5f2b7?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>What Broke Japanese Guys Actually Eat in Tokyo</h3>
+          <p>What budget-strapped young men in Tokyo really eat.</p>
+          <div class="card-meta">1 month ago</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Quitting Salaryman Life</span>
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>I Quit My Job, But Japan Still Takes Almost Half</h3>
+          <p>Taxes and social insurance don't disappear just because your income did.</p>
+          <div class="card-meta">1 month ago</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Quitting Salaryman Life</span>
+          <img src="https://images.unsplash.com/photo-1542931287-023b922fa89b?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>Real Life in Tokyo After Choosing Work Over Freedom</h3>
+          <p>Inside the mind of a 24-year-old who chose to become a salaryman again.</p>
+          <div class="card-meta">1 month ago</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Real Life Vlog</span>
+          <img src="https://images.unsplash.com/photo-1522092635459-52a67c3b25c9?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>Leaving Japan for the First Time...It Was Way Too Intense!</h3>
+          <p>Everything I felt the first time I ever left Japan.</p>
+          <div class="card-meta">1 month ago</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Quitting Salaryman Life</span>
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body">
+          <h3>I Had No Choice But to Become a Salaryman</h3>
+          <p>Why I ended up choosing the same path again, even after wanting freedom.</p>
+          <div class="card-meta">2 months ago</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="section-head">
+      <h2>Show me...</h2>
+    </div>
+    <div class="chip-grid">
+      <a href="category_mockup.html" class="chip">quitting my job</a>
+      <a href="category-food.html" class="chip">budget food</a>
+      <a href="category-vlog.html" class="chip">Tokyo daily life</a>
+      <a href="category-countryside.html" class="chip">countryside stories</a>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="banner">
+      <div>
+        <h3>We Run Private Tokyo Tours</h3>
+        <p>Tokyo beyond the guidebooks, guided by someone who's traveled to 35+ countries. Reach out anytime via Instagram DM.</p>
+      </div>
+      <a href="#" class="btn btn-primary">Message Us on Instagram</a>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-head">
+      <h2>About Us</h2>
+    </div>
+    <div class="profile-grid">
+      <div class="profile-card">
+        <div class="team-avatar">
+          <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=300&auto=format&fit=crop" alt="">
+        </div>
+        <div>
+          <h3>Yudai</h3>
+          <div class="role">Founder</div>
+          <p>After traveling to more than 35 countries, I realized Japan is my favorite. Instead of taking a graduate job, I chose to share what makes it special.</p>
+        </div>
+      </div>
+      <div class="profile-card">
+        <div class="team-avatar">
+          <img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?q=80&w=300&auto=format&fit=crop" alt="">
+        </div>
+        <div>
+          <h3>oga</h3>
+          <div class="role">Partner</div>
+          <p>Yudai's partner, running the channel together. Neither of us took the traditional graduate-job route — instead we share our belief that Japan is the best country in the world.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:12px;">NUMARU Japan<span>.</span></div>
+        <p style="color:var(--text-dim);font-size:14px;max-width:280px;">Unfiltered real life in Japan, from a Japanese guy who's traveled to 35+ countries.</p>
+      </div>
+      <div>
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#">Private Tour</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Categories</h5>
+        <ul>
+          <li><a href="category_mockup.html">Quitting Salaryman Life</a></li>
+          <li><a href="category-food.html">Japanese Food</a></li>
+          <li><a href="category-countryside.html">Countryside</a></li>
+          <li><a href="category-vlog.html">Real Life Vlog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 NUMARU Japan. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

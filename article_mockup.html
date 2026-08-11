@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Week With Zero Income in Tokyo After Quitting My Job | NUMARU Japan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0f10; --bg-alt:#17171a; --card:#1d1d21; --text:#f2f0ec;
+    --text-dim:#a9a7a2; --accent:#e0433a; --accent-dark:#b53129; --border:#2a2a2e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans JP','Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+  h1,h2,h3,h4,.brand{font-family:'Poppins','Noto Sans JP',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1160px;margin:0 auto;padding:0 24px;}
+
+  header{position:sticky;top:0;z-index:100;background:rgba(15,15,16,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--border);}
+  .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1160px;margin:0 auto;}
+  .brand{font-size:22px;font-weight:800;letter-spacing:0.5px;}
+  .brand span{color:var(--accent);}
+  nav ul{list-style:none;display:flex;gap:28px;}
+  nav a{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);transition:color .2s;}
+  nav a:hover, nav a.active{color:var(--accent);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
+
+  .breadcrumb{padding:20px 0 0;font-size:13px;color:var(--text-dim);}
+  .breadcrumb a:hover{color:var(--accent);}
+
+  .article-wrap{max-width:760px;margin:0 auto;padding:32px 24px 0;}
+  .article-tag{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:14px;}
+  .article-wrap h1{font-size:38px;font-weight:800;line-height:1.25;margin-bottom:20px;}
+  .article-meta{display:flex;align-items:center;gap:14px;color:var(--text-dim);font-size:13px;margin-bottom:32px;}
+  .article-meta .avatar{width:32px;height:32px;border-radius:50%;overflow:hidden;}
+  .article-meta .avatar img{width:100%;height:100%;object-fit:cover;}
+
+  .hero-img{width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;margin-bottom:36px;}
+  .hero-img img{width:100%;height:100%;object-fit:cover;}
+
+  .video-embed{
+    width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;margin:36px 0;
+    background:var(--card);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .video-embed img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.55;}
+  .play-btn{
+    position:relative;z-index:2;width:64px;height:64px;border-radius:50%;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;
+  }
+
+  .prose{max-width:760px;margin:0 auto;padding:0 24px 60px;font-size:17px;color:#dedcd7;}
+  .prose p{margin-bottom:22px;}
+  .prose blockquote{
+    border-left:3px solid var(--accent);padding:6px 24px;margin:36px 0;font-size:21px;font-weight:700;
+    font-style:italic;color:var(--text);
+  }
+  .prose h2{font-size:24px;font-weight:800;margin:40px 0 16px;}
+
+  .tags{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap;}
+  .tag-pill{border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--text-dim);}
+
+  .related{padding:60px 0 80px;border-top:1px solid var(--border);margin-top:20px;}
+  .related h2{font-size:26px;font-weight:800;margin-bottom:28px;text-align:center;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;}
+  .card:hover{transform:translateY(-4px);}
+  .card-img{aspect-ratio:16/10;overflow:hidden;position:relative;}
+  .card-img img{width:100%;height:100%;object-fit:cover;}
+  .card-tag{position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;}
+  .card-body{padding:18px 20px 22px;}
+  .card-body h3{font-size:16px;font-weight:700;}
+
+  footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
+  .footer-grid h5{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:16px;}
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:10px;font-size:14px;}
+  .footer-grid li a:hover{color:var(--accent);}
+  .footer-bottom{border-top:1px solid var(--border);padding-top:24px;font-size:13px;color:var(--text-dim);text-align:center;}
+
+  @media (max-width:900px){
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .article-wrap h1{font-size:28px;}
+  }
+  @media (max-width:640px){
+    nav{display:none;}
+    .nav-toggle{display:block;}
+    .grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="brand">NUMARU Japan<span>.</span></a>
+    <nav>
+      <ul>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="category_mockup.html" class="active">Quitting Salaryman Life</a></li>
+        <li><a href="category-food.html">Japanese Food</a></li>
+        <li><a href="category-countryside.html">Countryside</a></li>
+        <li><a href="category-vlog.html">Real Life Vlog</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle">☰</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="category_mockup.html">Quitting Salaryman Life</a> / Zero Income Week</div>
+</div>
+
+<div class="article-wrap">
+  <div class="article-tag">Quitting Salaryman Life</div>
+  <h1>A Week With Zero Income in Tokyo After Quitting My Job</h1>
+  <div class="article-meta">
+    <div class="avatar"><img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=100&auto=format&fit=crop" alt=""></div>
+    <span>Yudai</span>
+    <span>·</span>
+    <span>August 11, 2026</span>
+    <span>·</span>
+    <span>7 min read</span>
+  </div>
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1542931287-023b922fa89b?q=80&w=1200&auto=format&fit=crop" alt="">
+  </div>
+</div>
+
+<div class="prose">
+  <p>The day I decided to quit, I barely had any savings. I gave up a steady paycheck and the title on my business card, and decided to spend a week in Tokyo starting from zero.</p>
+  <p>On day one, counting what was left in my wallet was honestly nerve-wracking. Still, I felt like I was finally getting to define the word "freedom" for myself.</p>
+
+  <div class="video-embed">
+    <img src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=80&w=1200&auto=format&fit=crop" alt="">
+    <div class="play-btn">▶</div>
+  </div>
+
+  <h2>What Became Visible After Giving Up Stability</h2>
+  <p>As a company employee, I thought the packed morning trains and meetings spent reading my boss's mood were just "normal." But once I quit, I realized how much that "normal" had been wearing me down.</p>
+
+  <blockquote>"Only after my income hit zero did I finally see what I'd actually been spending money on — and what I truly valued."</blockquote>
+
+  <p>By the end of the week, what remained wasn't just anxiety. It was the feeling that I could choose my next step on my own terms — and maybe that was the thing I'd been looking for all along.</p>
+
+  <div class="tags">
+    <div class="tag-pill">#QuittingMyJob</div>
+    <div class="tag-pill">#Tokyo</div>
+    <div class="tag-pill">#RealLife</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="related">
+    <h2>Related Stories</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Quitting Salaryman Life</span>
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body"><h3>I Couldn't Survive Alone. A Week Back as a Salaryman</h3></div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Countryside</span>
+          <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body"><h3>I Asked a 96-Year-Old Great-Grandma Her Secret to Longevity</h3></div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <span class="card-tag">Japanese Food</span>
+          <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=800&auto=format&fit=crop" alt="">
+        </div>
+        <div class="card-body"><h3>Eating Everyday Japanese Food for $3 in Sendai</h3></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:12px;">NUMARU Japan<span>.</span></div>
+        <p style="color:var(--text-dim);font-size:14px;max-width:280px;">Unfiltered real life in Japan, from a Japanese guy who's traveled to 35+ countries.</p>
+      </div>
+      <div>
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="#">Private Tour</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Categories</h5>
+        <ul>
+          <li><a href="category_mockup.html">Quitting Salaryman Life</a></li>
+          <li><a href="category-food.html">Japanese Food</a></li>
+          <li><a href="category-countryside.html">Countryside</a></li>
+          <li><a href="category-vlog.html">Real Life Vlog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 NUMARU Japan. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

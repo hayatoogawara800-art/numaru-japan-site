@@ -48,9 +48,10 @@
   .card-meta{font-size:12px;color:var(--text-dim);opacity:.8;}
 
   .pagination{display:flex;justify-content:center;gap:8px;padding-bottom:80px;}
-  .page-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:700;color:var(--text-dim);}
+  .page-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:700;color:var(--text-dim);cursor:pointer;}
   .page-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
   .page-btn:hover{border-color:var(--accent);color:var(--text);}
+  .page-btn.disabled{opacity:.35;pointer-events:none;cursor:default;}
 
   footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
@@ -99,122 +100,14 @@
     <div class="cat-tag">Category</div>
     <h1>Japanese Food</h1>
     <p>Not fancy gourmet — what Japanese people actually eat day to day. From breakfast to $3 budget meals, a tour of real dinner tables.</p>
-    <div class="cat-count">18 articles</div>
+    <div class="cat-count" id="category-count">Loading articles…</div>
   </div>
 
-  <div class="grid">
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=3orvtVyoW9c" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Japanese Food</span>
-        <img src="https://img.youtube.com/vi/3orvtVyoW9c/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>What Japanese People Actually Eat for Breakfast</h3>
-        <p>A look at everyday life in Japan, one breakfast table at a time.</p>
-        <div class="card-meta">9 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=oWCmOTvoJ8w" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Japanese Food</span>
-        <img src="https://img.youtube.com/vi/oWCmOTvoJ8w/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Traditional Hokkaido Food Even Japanese People Have Never Tried</h3>
-        <p>Local dishes so obscure even Hokkaido locals don't know them.</p>
-        <div class="card-meta">8 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=_PompQftFxE" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Japanese Food</span>
-        <img src="https://img.youtube.com/vi/_PompQftFxE/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>What Japanese People Actually Eat in Kyoto</h3>
-        <p>Beyond the tourist spots: the real diet of Kyoto locals.</p>
-        <div class="card-meta">8 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=pysFQFkQ1aQ" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Japanese Food</span>
-        <img src="https://img.youtube.com/vi/pysFQFkQ1aQ/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Eating Everyday Japanese Food for $3 in Sendai</h3>
-        <p>A peek at how budget-conscious Japanese people really eat.</p>
-        <div class="card-meta">14 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=7UMpARccp0I" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Japanese Food</span>
-        <img src="https://img.youtube.com/vi/7UMpARccp0I/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>What Broke Japanese Guys Actually Eat in Tokyo</h3>
-        <p>What budget-strapped young men in Tokyo really eat.</p>
-        <div class="card-meta">9 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=tOzDFUQfMtQ" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Japanese Food</span>
-        <img src="https://img.youtube.com/vi/tOzDFUQfMtQ/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Learning Real Japanese Cooking From a Pro Chef</h3>
-        <p>Techniques you won't learn at home, taught by a professional.</p>
-        <div class="card-meta">12 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=ykzlVr1NATA" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Japanese Food</span>
-        <img src="https://img.youtube.com/vi/ykzlVr1NATA/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>⚠️Do NOT Eat Sushi in Japan (Here's Why)</h3>
-        <p>How to spot the sushi spots tourists unknowingly walk into — and should avoid.</p>
-        <div class="card-meta">13 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=bdOpZ2C1538" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Japanese Food</span>
-        <img src="https://img.youtube.com/vi/bdOpZ2C1538/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>The Secrets of Nagano's MASUMI Sake, Straight From the Brewery</h3>
-        <p>The craftsmanship behind sake-making, known only to local shops.</p>
-        <div class="card-meta">16 min read</div>
-      </div>
-    </a>
-    </div>
+  <div class="grid" id="category-grid">
+    <p style="color:var(--text-dim);grid-column:1/-1;">Loading videos...</p>
   </div>
 
-  <div class="pagination">
-    <div class="page-btn active">1</div>
-    <div class="page-btn">2</div>
-    <div class="page-btn">3</div>
-    <div class="page-btn">→</div>
-  </div>
+  <div class="pagination" id="category-pagination"></div>
 </div>
 
 <footer>
@@ -254,5 +147,12 @@
   </div>
 </footer>
 
+<script>
+  window.CATEGORY_CONFIG = {
+    tag: "Japanese Food",
+    keywords: ["eat", "food", "breakfast", "sushi", "cooking", "chef", "sake", "brewery"]
+  };
+</script>
+<script src="youtube-category-feed.js"></script>
 </body>
 </html>

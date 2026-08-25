@@ -48,9 +48,10 @@
   .card-meta{font-size:12px;color:var(--text-dim);opacity:.8;}
 
   .pagination{display:flex;justify-content:center;gap:8px;padding-bottom:80px;}
-  .page-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:700;color:var(--text-dim);}
+  .page-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:700;color:var(--text-dim);cursor:pointer;}
   .page-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
   .page-btn:hover{border-color:var(--accent);color:var(--text);}
+  .page-btn.disabled{opacity:.35;pointer-events:none;cursor:default;}
 
   footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
@@ -99,96 +100,14 @@
     <div class="cat-tag">Category</div>
     <h1>Real Life Vlog</h1>
     <p>Everyday life in Tokyo, chance encounters, and fleeting moments. The real-size Japan a 24-year-old sees — the kind you won't find in a guidebook.</p>
-    <div class="cat-count">20 articles</div>
+    <div class="cat-count" id="category-count">Loading articles…</div>
   </div>
 
-  <div class="grid">
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=8kZpduA6iQg" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Real Life Vlog</span>
-        <img src="https://img.youtube.com/vi/8kZpduA6iQg/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Leaving Japan for the First Time...It Was Way Too Intense!</h3>
-        <p>Everything I felt the first time I ever left Japan.</p>
-        <div class="card-meta">17 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=fGntCLfClV0" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Real Life Vlog</span>
-        <img src="https://img.youtube.com/vi/fGntCLfClV0/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Meeting Someone Important After Years</h3>
-        <p>A reunion made heavier by all the time apart.</p>
-        <div class="card-meta">8 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=ehIO1Y21Z2Q" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Real Life Vlog</span>
-        <img src="https://img.youtube.com/vi/ehIO1Y21Z2Q/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Three Japanese Guys Started Living Together in Tokyo</h3>
-        <p>Three guys, each with their own story, choosing a new way to live.</p>
-        <div class="card-meta">11 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=KmPUho14xlU" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Real Life Vlog</span>
-        <img src="https://img.youtube.com/vi/KmPUho14xlU/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Following a Random Salaryman in a Typhoon... and Finding Tokyo's Best Lunch</h3>
-        <p>Even in a storm, Japan's daily routine — and one great lunch — don't change.</p>
-        <div class="card-meta">7 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=eYGzW_diYNU" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Real Life Vlog</span>
-        <img src="https://img.youtube.com/vi/eYGzW_diYNU/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>The Hidden Side of Shibuya at Night, Only Locals Know</h3>
-        <p>The other face of Shibuya's nightlife, invisible to tourists.</p>
-        <div class="card-meta">16 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=nvdVQ_Bt1Ok" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Real Life Vlog</span>
-        <img src="https://img.youtube.com/vi/nvdVQ_Bt1Ok/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>I Spent $20 in a Japanese Pachinko Casino</h3>
-        <p>The reality of pachinko culture, woven into everyday Japan.</p>
-        <div class="card-meta">8 min read</div>
-      </div>
-    </a>
-    </div>
+  <div class="grid" id="category-grid">
+    <p style="color:var(--text-dim);grid-column:1/-1;">Loading videos...</p>
   </div>
 
-  <div class="pagination">
-    <div class="page-btn active">1</div>
-    <div class="page-btn">2</div>
-    <div class="page-btn">3</div>
-    <div class="page-btn">→</div>
-  </div>
+  <div class="pagination" id="category-pagination"></div>
 </div>
 
 <footer>
@@ -228,5 +147,12 @@
   </div>
 </footer>
 
+<script>
+  window.CATEGORY_CONFIG = {
+    tag: "Real Life Vlog",
+    keywords: ["leaving japan", "living together", "typhoon", "shibuya", "pachinko", "meeting someone", "random salaryman", "casino"]
+  };
+</script>
+<script src="youtube-category-feed.js"></script>
 </body>
 </html>

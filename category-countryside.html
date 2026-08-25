@@ -48,9 +48,10 @@
   .card-meta{font-size:12px;color:var(--text-dim);opacity:.8;}
 
   .pagination{display:flex;justify-content:center;gap:8px;padding-bottom:80px;}
-  .page-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:700;color:var(--text-dim);}
+  .page-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:700;color:var(--text-dim);cursor:pointer;}
   .page-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
   .page-btn:hover{border-color:var(--accent);color:var(--text);}
+  .page-btn.disabled{opacity:.35;pointer-events:none;cursor:default;}
 
   footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
@@ -99,95 +100,14 @@
     <div class="cat-tag">Category</div>
     <h1>Countryside</h1>
     <p>Leaving Tokyo behind to find Japan's other side — time with grandma, mornings in the countryside, and a slower pace of life the city doesn't have.</p>
-    <div class="cat-count">15 articles</div>
+    <div class="cat-count" id="category-count">Loading articles…</div>
   </div>
 
-  <div class="grid">
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=2I4omrbBF_k" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Countryside</span>
-        <img src="https://img.youtube.com/vi/2I4omrbBF_k/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>I Asked a 96-Year-Old Great-Grandma Her Secret to Longevity</h3>
-        <p>Visiting grandma in the countryside to rediscover what everyday life in Japan really looks like.</p>
-        <div class="card-meta">15 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=s6nARZxL32I" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Countryside</span>
-        <img src="https://img.youtube.com/vi/s6nARZxL32I/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>I Quit My Job and Moved to the Japanese Countryside</h3>
-        <p>A new way of living, only visible after leaving the city.</p>
-        <div class="card-meta">14 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=gukmRrc9M0c" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Countryside</span>
-        <img src="https://img.youtube.com/vi/gukmRrc9M0c/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Morning Routine After Quitting My Job in the Japanese Countryside</h3>
-        <p>How mornings changed after leaving company life behind for the countryside.</p>
-        <div class="card-meta">24 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=PtgRJPwncNQ" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Countryside</span>
-        <img src="https://img.youtube.com/vi/PtgRJPwncNQ/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Real Rural Life in Japan, Seeing My Grandma in Hiroshima</h3>
-        <p>Not a tourist spot — Japan's countryside in its rawest form.</p>
-        <div class="card-meta">10 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=-efxKghPW6s" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Countryside</span>
-        <img src="https://img.youtube.com/vi/-efxKghPW6s/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>I Escaped to Okinawa to Run Away From Reality</h3>
-        <p>Days spent healing a burnt-out mind on a southern island.</p>
-        <div class="card-meta">24 min read</div>
-      </div>
-    </a>
-    </div>
-    <div class="card">
-    <a href="https://www.youtube.com/watch?v=ZBhfHwDG0LU" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
-      <div class="card-img">
-        <span class="card-tag">Countryside</span>
-        <img src="https://img.youtube.com/vi/ZBhfHwDG0LU/hqdefault.jpg" alt="">
-      </div>
-      <div class="card-body">
-        <h3>Tokyo Burned Me Out... So I Went Back to Shizuoka</h3>
-        <p>Choosing to return home after burning out in Tokyo.</p>
-        <div class="card-meta">11 min read</div>
-      </div>
-    </a>
-    </div>
+  <div class="grid" id="category-grid">
+    <p style="color:var(--text-dim);grid-column:1/-1;">Loading videos...</p>
   </div>
 
-  <div class="pagination">
-    <div class="page-btn active">1</div>
-    <div class="page-btn">2</div>
-    <div class="page-btn">→</div>
-  </div>
+  <div class="pagination" id="category-pagination"></div>
 </div>
 
 <footer>
@@ -227,5 +147,12 @@
   </div>
 </footer>
 
+<script>
+  window.CATEGORY_CONFIG = {
+    tag: "Countryside",
+    keywords: ["countryside", "grandma", "great-grandma", "rural", "hiroshima", "okinawa", "shizuoka", "morning routine", "escaped"]
+  };
+</script>
+<script src="youtube-category-feed.js"></script>
 </body>
 </html>

@@ -3,6 +3,14 @@
  * from the channel via the YouTube Data API v3, filtered by keyword match
  * on the video title, with working pagination (Prev / page numbers / Next).
  *
+ * Long vs. Short handling:
+ *  - "Long" videos (duration > SHORT_MAX_SECONDS) are always included if
+ *    their title matches the category's keywords.
+ *  - "Short" videos (duration <= SHORT_MAX_SECONDS, YouTube's own Shorts
+ *    cutoff) are only included if they're performing well — specifically,
+ *    their view count is at or above the median view count of all Shorts
+ *    on the channel. Underperforming Shorts are filtered out.
+ *
  * Setup:
  * 1. Each category page sets `window.CATEGORY_CONFIG = { tag, keywords }`
  *    in an inline <script> before this file is loaded.
@@ -14,8 +22,9 @@
  *    redeploys automatically.
  *
  * How it works: on page load, the browser pages through the channel's
- * entire uploads playlist, keeps only videos whose title matches one of
- * this category's keywords, sorts by newest first, and renders them in
+ * entire uploads playlist, fetches duration + view count for every video,
+ * keeps only videos whose title matches this category's keywords (applying
+ * the Long/Short rule above), sorts by newest first, and renders them in
  * pages of PAGE_SIZE with real, working pagination.
  */
 
@@ -23,6 +32,7 @@ const YT_API_KEY = "AIzaSyBQtlPf7nlyKrDsChAm_WMtfS_SRhL7vl8";
 const YT_CHANNEL_UPLOADS_PLAYLIST = "UUGfVKOgzqAayGEfzDxHOSCw"; // NUMARU Japan (@yudaiogajapan) uploads playlist
 const PAGE_SIZE = 6;
 const MAX_PLAYLIST_PAGES = 6; // 6 x 50 = up to 300 videos scanned
+const SHORT_MAX_SECONDS = 180; // YouTube's current Shorts length cutoff (3 min)
 
 let allMatchedVideos = [];
 let currentPage = 1;
@@ -50,6 +60,35 @@ async function fetchAllChannelVideos() {
     pageToken = data.nextPageToken;
   }
   return videos;
+}
+
+function parseISODuration(iso) {
+  const match = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(iso || "");
+  if (!match) return 0;
+  const hours = parseInt(match[1] || "0", 10);
+  const minutes = parseInt(match[2] || "0", 10);
+  const seconds = parseInt(match[3] || "0", 10);
+  return hours * 3600 + minutes * 60 + seconds;
+}
+
+async function fetchVideoDetails(ids) {
+  const details = {};
+  for (let i = 0; i < ids.length; i += 50) {
+    const batch = ids.slice(i, i + 50);
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics&id=${batch.join(
+      ","
+    )}&key=${YT_API_KEY}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    data.items.forEach((item) => {
+      details[item.id] = {
+        durationSeconds: parseISODuration(item.contentDetails.duration),
+        viewCount: parseInt(item.statistics.viewCount, 10) || 0,
+      };
+    });
+  }
+  return details;
 }
 
 function matchesCategory(title, keywords) {
@@ -152,9 +191,31 @@ async function initCategoryFeed() {
   grid.innerHTML = '<p style="color:var(--text-dim);grid-column:1/-1;">Loading videos...</p>';
 
   try {
-    const allVideos = await fetchAllChannelVideos();
-    allMatchedVideos = allVideos
+    const basics = await fetchAllChannelVideos();
+    const details = await fetchVideoDetails(basics.map((v) => v.id));
+
+    const enriched = basics.map((v) => {
+      const d = details[v.id] || { durationSeconds: 0, viewCount: 0 };
+      return {
+        ...v,
+        durationSeconds: d.durationSeconds,
+        viewCount: d.viewCount,
+        isShort: d.durationSeconds > 0 && d.durationSeconds <= SHORT_MAX_SECONDS,
+      };
+    });
+
+    // "Performing well" threshold for Shorts: median view count across
+    // every Short on the channel (not just this category).
+    const shortViewCounts = enriched
+      .filter((v) => v.isShort)
+      .map((v) => v.viewCount)
+      .sort((a, b) => a - b);
+    const shortsMedian =
+      shortViewCounts.length > 0 ? shortViewCounts[Math.floor(shortViewCounts.length / 2)] : 0;
+
+    allMatchedVideos = enriched
       .filter((v) => matchesCategory(v.title, config.keywords))
+      .filter((v) => !v.isShort || v.viewCount >= shortsMedian)
       .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
 
     const countEl = document.getElementById("category-count");

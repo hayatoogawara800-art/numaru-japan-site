@@ -75,6 +75,18 @@
   @media (max-width:640px){
     nav{display:none;}
     .nav-toggle{display:block;}
+    nav.nav-open{
+      display:block;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      background:var(--bg);
+      border-bottom:1px solid var(--border);
+      padding:16px 24px;
+      z-index:99;
+    }
+    nav.nav-open ul{flex-direction:column;gap:16px;}
     .grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
   }
@@ -165,5 +177,13 @@
   };
 </script>
 <script src="youtube-category-feed.js"></script>
+<script>
+  document.querySelectorAll('.nav-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var nav = btn.parentElement.querySelector('nav');
+      if (nav) nav.classList.toggle('nav-open');
+    });
+  });
+</script>
 </body>
 </html>

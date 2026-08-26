@@ -420,12 +420,14 @@
     if (!el) return;
     var i = 0;
     var deleting = false;
+    var TYPE_DELAY = 110;   // ~6 seconds to type the full line
+    var DELETE_DELAY = 25;  // unchanged, quicker delete
     function loop(){
       el.textContent = text.slice(0, i);
       if (!deleting) {
         if (i < text.length) {
           i++;
-          setTimeout(loop, 45);
+          setTimeout(loop, TYPE_DELAY);
         } else {
           deleting = true;
           setTimeout(loop, 1800);
@@ -433,7 +435,7 @@
       } else {
         if (i > 0) {
           i--;
-          setTimeout(loop, 25);
+          setTimeout(loop, DELETE_DELAY);
         } else {
           deleting = false;
           setTimeout(loop, 400);

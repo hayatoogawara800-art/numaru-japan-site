@@ -29,16 +29,16 @@
 
   .cat-banner{position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
   .cat-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-  .cat-banner-tint{position:absolute;inset:0;background:rgba(255,255,255,0.25);}
   .cat-banner .container{position:relative;z-index:1;}
-  .breadcrumb{padding:20px 0 0;font-size:13px;color:#555;}
+  .cat-hero-card{background:rgba(255,255,255,0.9);border-radius:14px;padding:28px 32px;max-width:600px;margin:36px 0;box-shadow:0 10px 30px rgba(0,0,0,0.25);}
+  .breadcrumb{font-size:13px;color:#666;margin-bottom:14px;}
   .breadcrumb a:hover{color:var(--accent);}
 
-  .cat-hero{padding:14px 0 40px;}
+  .cat-hero{padding:0;}
   .cat-tag{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:10px;}
-  .cat-hero h1{font-size:42px;font-weight:800;margin-bottom:14px;color:#1a1a1a;}
-  .cat-hero p{color:#4a4a4a;max-width:640px;font-size:15px;}
-  .cat-count{margin-top:16px;font-size:13px;color:#555;}
+  .cat-hero h1{font-size:38px;font-weight:800;margin-bottom:12px;color:#1a1a1a;}
+  .cat-hero p{color:#4a4a4a;font-size:15px;}
+  .cat-count{margin-top:14px;font-size:13px;color:#666;}
 
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:56px;}
   .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;display:flex;flex-direction:column;}
@@ -100,15 +100,16 @@
 </header>
 
 <div class="cat-banner">
-  <div class="cat-banner-bg" style="background-image:url('https://images.unsplash.com/photo-1590559899731-a382839e5549?q=80&w=1600&auto=format&fit=crop');"></div>
-  <div class="cat-banner-tint"></div>
+  <div class="cat-banner-bg" style="background-image:url('https://images.unsplash.com/photo-1661495897609-f0c3fd322a42?q=80&w=1600&auto=format&fit=crop');"></div>
   <div class="container">
-    <div class="breadcrumb"><a href="index.html">Home</a> / Izu Renovation</div>
-    <div class="cat-hero">
-      <div class="cat-tag">Category</div>
-      <h1>Izu Renovation</h1>
-      <p>Renovating a place in Izu from the ground up — the wins, the setbacks, and everything in between.</p>
-      <div class="cat-count">1 article</div>
+    <div class="cat-hero-card">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Izu Renovation</div>
+      <div class="cat-hero">
+        <div class="cat-tag">Category</div>
+        <h1>Izu Renovation</h1>
+        <p>Renovating a place in Izu from the ground up — the wins, the setbacks, and everything in between.</p>
+        <div class="cat-count">1 article</div>
+      </div>
     </div>
   </div>
 </div>

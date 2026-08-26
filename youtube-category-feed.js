@@ -132,12 +132,14 @@ function renderPage(page) {
     <div class="card">
       <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
         <div class="card-img">
-          <span class="card-tag">${escapeHtml(tag)}</span>
           <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="">
         </div>
         <div class="card-body">
           <h3>${escapeHtml(v.title)}</h3>
-          <div class="card-meta">${formatRelativeTime(v.publishedAt)}</div>
+          <div class="card-footer">
+            <div class="card-meta">${formatRelativeTime(v.publishedAt)}</div>
+            <span class="card-tag">${escapeHtml(tag)}</span>
+          </div>
         </div>
       </a>
     </div>

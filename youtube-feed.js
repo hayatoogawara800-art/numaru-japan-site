@@ -65,12 +65,14 @@ async function fetchMostWatched() {
       <div class="card">
         <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
           <div class="card-img">
-            <span class="card-tag">Most Watched</span>
             <img src="${v.thumbnail}" alt="">
           </div>
           <div class="card-body">
             <h3>${escapeHtml(v.title)}</h3>
-            <div class="card-meta">${formatViews(v.views)} views</div>
+            <div class="card-footer">
+              <div class="card-meta">${formatViews(v.views)} views</div>
+              <span class="card-tag">Most Watched</span>
+            </div>
           </div>
         </a>
       </div>

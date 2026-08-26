@@ -65,13 +65,13 @@
   .related{padding:60px 0 80px;border-top:1px solid var(--border);margin-top:20px;}
   .related h2{font-size:26px;font-weight:800;margin-bottom:28px;text-align:center;}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;}
+  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;display:flex;flex-direction:column;}
   .card:hover{transform:translateY(-4px);}
   .card-img{aspect-ratio:16/10;overflow:hidden;position:relative;}
   .card-img img{width:100%;height:100%;object-fit:cover;}
   .card-tag{background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;white-space:nowrap;}
-  .card-body{padding:18px 20px 22px;}
-  .card-body h3{font-size:16px;font-weight:700;}
+  .card-body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1;}
+  .card-body h3{font-size:16px;font-weight:700;margin-bottom:8px;}
 
   footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
@@ -165,7 +165,7 @@
         <div class="card-img">
           <img src="https://img.youtube.com/vi/3U9ArgDL3FA/hqdefault.jpg" alt="">
         </div>
-        <div class="card-body"><h3>I Couldn't Survive Alone. A Week Back as a Salaryman</h3><span class="card-tag" style="display:inline-block;margin-top:8px;">Quitting Salaryman Life</span></div>
+        <div class="card-body"><h3>I Couldn't Survive Alone. A Week Back as a Salaryman</h3><span class="card-tag" style="display:inline-block;margin-top:auto;align-self:flex-start;">Quitting Salaryman Life</span></div>
       </a>
       </div>
       <div class="card">
@@ -173,7 +173,7 @@
         <div class="card-img">
           <img src="https://img.youtube.com/vi/2I4omrbBF_k/hqdefault.jpg" alt="">
         </div>
-        <div class="card-body"><h3>I Asked a 96-Year-Old Great-Grandma Her Secret to Longevity</h3><span class="card-tag" style="display:inline-block;margin-top:8px;">Countryside</span></div>
+        <div class="card-body"><h3>I Asked a 96-Year-Old Great-Grandma Her Secret to Longevity</h3><span class="card-tag" style="display:inline-block;margin-top:auto;align-self:flex-start;">Countryside</span></div>
       </a>
       </div>
       <div class="card">
@@ -181,7 +181,7 @@
         <div class="card-img">
           <img src="https://img.youtube.com/vi/pysFQFkQ1aQ/hqdefault.jpg" alt="">
         </div>
-        <div class="card-body"><h3>Eating Everyday Japanese Food for $3 in Sendai</h3><span class="card-tag" style="display:inline-block;margin-top:8px;">Japanese Food</span></div>
+        <div class="card-body"><h3>Eating Everyday Japanese Food for $3 in Sendai</h3><span class="card-tag" style="display:inline-block;margin-top:auto;align-self:flex-start;">Japanese Food</span></div>
       </a>
       </div>
     </div>

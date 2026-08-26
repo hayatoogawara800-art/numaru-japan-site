@@ -130,7 +130,7 @@ function renderPage(page) {
     .map(
       (v) => `
     <div class="card">
-      <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" style="display:block;color:inherit;text-decoration:none;">
+      <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" class="card-link">
         <div class="card-img">
           <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="">
         </div>

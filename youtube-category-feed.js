@@ -96,6 +96,20 @@ function matchesCategory(title, keywords) {
   return keywords.some((kw) => t.includes(kw.toLowerCase()));
 }
 
+// A category page can either be a single flat { tag, keywords } (most pages),
+// or a merged category made of several sub-groups, each with its own
+// per-video tag: { tag, groups: [{ tag, keywords }, ...] }. This lets one
+// nav item combine multiple themes while each card still shows the specific
+// sub-tag that matched (e.g. "Quitting Salaryman Life" vs "Real Life Vlog").
+function resolveGroups(config) {
+  if (config.groups && config.groups.length) return config.groups;
+  return [{ tag: config.tag, keywords: config.keywords || [] }];
+}
+
+function matchGroupForTitle(title, groups) {
+  return groups.find((g) => matchesCategory(title, g.keywords)) || null;
+}
+
 function formatRelativeTime(dateStr) {
   const diffMs = Date.now() - new Date(dateStr).getTime();
   const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
@@ -116,7 +130,7 @@ function formatRelativeTime(dateStr) {
 function renderPage(page) {
   const grid = document.getElementById("category-grid");
   if (!grid) return;
-  const tag = window.CATEGORY_CONFIG.tag;
+  const fallbackTag = window.CATEGORY_CONFIG.tag;
   const start = (page - 1) * PAGE_SIZE;
   const pageItems = allMatchedVideos.slice(start, start + PAGE_SIZE);
 
@@ -138,7 +152,7 @@ function renderPage(page) {
           <h3>${escapeHtml(v.title)}</h3>
           <div class="card-footer">
             <div class="card-meta">${formatRelativeTime(v.publishedAt)}</div>
-            <span class="card-tag">${escapeHtml(tag)}</span>
+            <span class="card-tag">${escapeHtml((v.matchedGroup && v.matchedGroup.tag) || fallbackTag)}</span>
           </div>
         </div>
       </a>
@@ -215,8 +229,11 @@ async function initCategoryFeed() {
     const shortsMedian =
       shortViewCounts.length > 0 ? shortViewCounts[Math.floor(shortViewCounts.length / 2)] : 0;
 
+    const groups = resolveGroups(config);
+
     allMatchedVideos = enriched
-      .filter((v) => matchesCategory(v.title, config.keywords))
+      .map((v) => ({ ...v, matchedGroup: matchGroupForTitle(v.title, groups) }))
+      .filter((v) => v.matchedGroup)
       .filter((v) => !v.isShort || v.viewCount >= shortsMedian)
       .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
 

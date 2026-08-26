@@ -57,6 +57,8 @@
   .hero-content{padding:0 24px 64px;max-width:1160px;margin:0 auto;width:100%;}
   .hero-tag{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:12px;}
   .hero h1{font-size:56px;font-weight:800;max-width:640px;line-height:1.1;}
+  .typing-cursor{display:inline-block;color:var(--accent);animation:hero-blink .8s step-end infinite;}
+  @keyframes hero-blink{50%{opacity:0;}}
   .hero p{margin-top:16px;max-width:480px;color:var(--text-dim);font-size:16px;}
   .hero-cta{margin-top:28px;display:inline-flex;gap:14px;}
   .btn{
@@ -176,7 +178,7 @@
 <section class="hero">
   <div class="hero-content">
     <div class="hero-tag">Real Life in Japan</div>
-    <h1>The real Japan, seen by a 25-year-old who quit his job.</h1>
+    <h1><span id="hero-typing"></span><span class="typing-cursor">|</span></h1>
     <p>A real look at life as a young person in Tokyo — working hard in the city, living simply, and staying connected to family in the countryside.</p>
     <div class="hero-cta">
       <a href="#latest" class="btn btn-primary">Read the Latest Stories</a>
@@ -404,7 +406,6 @@
         <ul>
           <li><a href="https://www.youtube.com/@NUMARUJapan" target="_blank" rel="noopener">YouTube</a></li>
           <li><a href="https://www.instagram.com/numarujapan/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="#">TikTok</a></li>
         </ul>
       </div>
     </div>
@@ -412,6 +413,20 @@
   </div>
 </footer>
 
+<script>
+  (function(){
+    var text = "The real Japan, seen by a 25-year-old who quit his job.";
+    var el = document.getElementById('hero-typing');
+    if (!el) return;
+    var i = 0;
+    function type(){
+      el.textContent = text.slice(0, i);
+      i++;
+      if (i <= text.length) setTimeout(type, 45);
+    }
+    type();
+  })();
+</script>
 <script src="youtube-feed.js"></script>
 </body>
 </html>

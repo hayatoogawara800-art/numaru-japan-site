@@ -34,6 +34,35 @@ const PAGE_SIZE = 6;
 const MAX_PLAYLIST_PAGES = 6; // 6 x 50 = up to 300 videos scanned
 const SHORT_MAX_SECONDS = 180; // YouTube's current Shorts length cutoff (3 min)
 
+// All category pages share one cached copy of the full channel scan (title,
+// duration, view count) for up to 1 hour, so browsing between category pages
+// within that window doesn't re-spend YouTube API quota. This is the
+// expensive part (up to 6 playlistItems.list pages + several videos.list
+// batches), so caching it here is what actually saves quota.
+const ALL_VIDEOS_CACHE_KEY = "numaru_yt_all_videos_v1";
+const CACHE_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
+
+function getCached(key, maxAgeMs) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed.timestamp !== "number" || !Array.isArray(parsed.data)) return null;
+    if (Date.now() - parsed.timestamp > maxAgeMs) return null;
+    return parsed.data;
+  } catch (e) {
+    return null;
+  }
+}
+
+function setCached(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({ timestamp: Date.now(), data }));
+  } catch (e) {
+    // localStorage unavailable (private browsing, storage full, etc.) — fine to skip caching.
+  }
+}
+
 let allMatchedVideos = [];
 let currentPage = 1;
 
@@ -207,18 +236,24 @@ async function initCategoryFeed() {
   grid.innerHTML = '<p style="color:var(--text-dim);grid-column:1/-1;">Loading videos...</p>';
 
   try {
-    const basics = await fetchAllChannelVideos();
-    const details = await fetchVideoDetails(basics.map((v) => v.id));
+    let enriched = getCached(ALL_VIDEOS_CACHE_KEY, CACHE_MAX_AGE_MS);
 
-    const enriched = basics.map((v) => {
-      const d = details[v.id] || { durationSeconds: 0, viewCount: 0 };
-      return {
-        ...v,
-        durationSeconds: d.durationSeconds,
-        viewCount: d.viewCount,
-        isShort: d.durationSeconds > 0 && d.durationSeconds <= SHORT_MAX_SECONDS,
-      };
-    });
+    if (!enriched) {
+      const basics = await fetchAllChannelVideos();
+      const details = await fetchVideoDetails(basics.map((v) => v.id));
+
+      enriched = basics.map((v) => {
+        const d = details[v.id] || { durationSeconds: 0, viewCount: 0 };
+        return {
+          ...v,
+          durationSeconds: d.durationSeconds,
+          viewCount: d.viewCount,
+          isShort: d.durationSeconds > 0 && d.durationSeconds <= SHORT_MAX_SECONDS,
+        };
+      });
+
+      setCached(ALL_VIDEOS_CACHE_KEY, enriched);
+    }
 
     // "Performing well" threshold for Shorts: median view count across
     // every Short on the channel (not just this category).

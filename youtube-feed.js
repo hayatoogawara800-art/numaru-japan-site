@@ -24,6 +24,32 @@ const YT_CHANNEL_UPLOADS_PLAYLIST = "UUGfVKOgzqAayGEfzDxHOSCw"; // NUMARU Japan 
 const YT_MAX_VIDEOS = 9; // how many cards to show per section
 const SHORT_MAX_SECONDS = 180;
 
+// Cache the homepage's fetched video batch for up to 1 hour, so repeat
+// visits / reloads within that window don't re-spend YouTube API quota.
+const HOMEPAGE_VIDEOS_CACHE_KEY = "numaru_yt_homepage_videos_v1";
+const CACHE_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
+
+function getCached(key, maxAgeMs) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed.timestamp !== "number" || !Array.isArray(parsed.data)) return null;
+    if (Date.now() - parsed.timestamp > maxAgeMs) return null;
+    return parsed.data;
+  } catch (e) {
+    return null;
+  }
+}
+
+function setCached(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({ timestamp: Date.now(), data }));
+  } catch (e) {
+    // localStorage unavailable (private browsing, storage full, etc.) — fine to skip caching.
+  }
+}
+
 // Keyword groups used to auto-tag each video for the "Latest Stories" cards.
 // Order matters: the first group whose keywords match the title wins.
 const LATEST_TAG_GROUPS = [
@@ -111,37 +137,43 @@ async function fetchHomepageFeeds() {
   }
 
   try {
-    // 1. Get recent uploaded video IDs from the channel's uploads playlist
-    const playlistRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${YT_CHANNEL_UPLOADS_PLAYLIST}&key=${YT_API_KEY}`
-    );
-    const playlistData = await playlistRes.json();
-    if (playlistData.error) throw new Error(playlistData.error.message);
+    let enriched = getCached(HOMEPAGE_VIDEOS_CACHE_KEY, CACHE_MAX_AGE_MS);
 
-    const videoIds = playlistData.items
-      .map((item) => item.snippet.resourceId.videoId)
-      .join(",");
+    if (!enriched) {
+      // 1. Get recent uploaded video IDs from the channel's uploads playlist
+      const playlistRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${YT_CHANNEL_UPLOADS_PLAYLIST}&key=${YT_API_KEY}`
+      );
+      const playlistData = await playlistRes.json();
+      if (playlistData.error) throw new Error(playlistData.error.message);
 
-    // 2. Get view counts, duration + thumbnails for those videos
-    const videosRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${videoIds}&key=${YT_API_KEY}`
-    );
-    const videosData = await videosRes.json();
-    if (videosData.error) throw new Error(videosData.error.message);
+      const videoIds = playlistData.items
+        .map((item) => item.snippet.resourceId.videoId)
+        .join(",");
 
-    const enriched = videosData.items.map((v) => {
-      const durationSeconds = parseISODuration(v.contentDetails.duration);
-      return {
-        id: v.id,
-        title: v.snippet.title,
-        description: v.snippet.description || "",
-        publishedAt: v.snippet.publishedAt,
-        thumbnail: v.snippet.thumbnails.high ? v.snippet.thumbnails.high.url : v.snippet.thumbnails.default.url,
-        views: parseInt(v.statistics.viewCount, 10) || 0,
-        durationSeconds,
-        isShort: durationSeconds > 0 && durationSeconds <= SHORT_MAX_SECONDS,
-      };
-    });
+      // 2. Get view counts, duration + thumbnails for those videos
+      const videosRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${videoIds}&key=${YT_API_KEY}`
+      );
+      const videosData = await videosRes.json();
+      if (videosData.error) throw new Error(videosData.error.message);
+
+      enriched = videosData.items.map((v) => {
+        const durationSeconds = parseISODuration(v.contentDetails.duration);
+        return {
+          id: v.id,
+          title: v.snippet.title,
+          description: v.snippet.description || "",
+          publishedAt: v.snippet.publishedAt,
+          thumbnail: v.snippet.thumbnails.high ? v.snippet.thumbnails.high.url : v.snippet.thumbnails.default.url,
+          views: parseInt(v.statistics.viewCount, 10) || 0,
+          durationSeconds,
+          isShort: durationSeconds > 0 && durationSeconds <= SHORT_MAX_SECONDS,
+        };
+      });
+
+      setCached(HOMEPAGE_VIDEOS_CACHE_KEY, enriched);
+    }
 
     // "Most Watched": simple top-N by view count (unchanged behavior).
     if (mostWatchedGrid) {

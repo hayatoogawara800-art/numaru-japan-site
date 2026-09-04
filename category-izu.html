@@ -22,42 +22,148 @@
   .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1160px;margin:0 auto;}
   .brand{font-size:22px;font-weight:800;letter-spacing:0.5px;}
   .brand span{color:var(--accent);}
-  nav ul{list-style:none;display:flex;gap:24px;flex-wrap:wrap;}
+  nav ul{list-style:none;display:flex;gap:20px;flex-wrap:wrap;}
   nav a{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);transition:color .2s;}
   nav a:hover, nav a.active{color:var(--accent);}
-  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;min-width:44px;min-height:44px;}
 
-  .cat-banner{position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
-  .cat-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-  .cat-banner .container{position:relative;z-index:1;}
-  .cat-hero-card{background:rgba(255,255,255,0.9);border-radius:14px;padding:28px 32px;max-width:600px;margin:36px 0;box-shadow:0 10px 30px rgba(0,0,0,0.25);}
-  .breadcrumb{font-size:13px;color:#666;margin-bottom:14px;}
-  .breadcrumb a:hover{color:var(--accent);}
-
-  .cat-hero{padding:0;}
-  .cat-tag{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:10px;}
-  .cat-hero h1{font-size:38px;font-weight:800;margin-bottom:12px;color:#1a1a1a;}
-  .cat-hero p{color:#4a4a4a;font-size:15px;}
-  .cat-count{margin-top:14px;font-size:13px;color:#666;}
-
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:56px;}
-  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;display:flex;flex-direction:column;}
-  .card-link{display:flex;flex-direction:column;flex:1;color:inherit;text-decoration:none;}
-  .card:hover{transform:translateY(-4px);}
-  .card-img{aspect-ratio:16/10;overflow:hidden;position:relative;}
-  .card-img img{width:100%;height:100%;object-fit:cover;}
-  .card-tag{background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;white-space:nowrap;}
-  .card-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px;}
-  .card-body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1;}
-  .card-body h3{font-size:17px;font-weight:700;margin-bottom:8px;}
-  .card-body p{font-size:14px;color:var(--text-dim);margin-bottom:10px;}
-  .card-meta{font-size:12px;color:var(--text-dim);opacity:.8;}
-
-  .empty-state{
-    border:1px dashed var(--border);border-radius:10px;padding:60px 24px;text-align:center;
-    color:var(--text-dim);margin-bottom:80px;
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+    overflow:hidden;border-bottom:1px solid var(--border);
   }
-  .empty-state h3{color:var(--text);font-size:20px;margin-bottom:10px;}
+  .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(15,15,16,.35) 0%, rgba(15,15,16,.75) 55%, rgba(15,15,16,.94) 100%);
+  }
+  .hero-content{position:relative;z-index:1;padding:100px 24px 40px;max-width:640px;}
+  .hero-breadcrumb{font-size:12px;color:var(--text-dim);margin-bottom:18px;}
+  .hero-breadcrumb a:hover{color:var(--accent);}
+  .hero-kicker{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:12px;margin-bottom:14px;}
+  .hero h1{font-size:32px;font-weight:800;line-height:1.25;margin-bottom:14px;}
+  .hero-sub{font-size:16px;font-weight:600;color:var(--text);margin-bottom:14px;}
+  .hero p.hero-body{font-size:16px;color:var(--text-dim);margin-bottom:12px;}
+  .hero-actions{display:flex;flex-direction:column;gap:12px;margin-top:22px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:6px;
+    font-size:15px;font-weight:700;text-align:center;cursor:pointer;border:2px solid transparent;
+  }
+  .btn-accent{background:var(--accent);color:#fff;}
+  .btn-accent:hover{background:var(--accent-dark);}
+  .btn-outline{border-color:var(--text);color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+  .scroll-hint{
+    position:relative;z-index:1;text-align:center;padding-bottom:20px;color:var(--text-dim);font-size:13px;
+    animation:bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+  /* ---------- Facts strip ---------- */
+  .facts{background:var(--bg-alt);border-bottom:1px solid var(--border);padding:32px 0;}
+  .facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px 16px;}
+  .fact-num{font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:var(--text);}
+  .fact-label{font-size:12px;color:var(--text-dim);margin-top:2px;}
+
+  /* ---------- Generic section ---------- */
+  .section{padding:56px 0;}
+  .section h2{font-size:26px;font-weight:800;margin-bottom:10px;}
+  .section-lead{color:var(--text-dim);font-size:15px;max-width:560px;margin-bottom:28px;}
+
+  /* ---------- What we're building ---------- */
+  .build-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  .build-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 20px;}
+  .build-card h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .build-card p{font-size:14px;color:var(--text-dim);}
+
+  /* ---------- Experience cards ---------- */
+  .exp-scroller{
+    display:flex;gap:16px;overflow-x:auto;padding-bottom:10px;margin-bottom:8px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  }
+  .exp-card{
+    scroll-snap-align:start;flex:0 0 84%;background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;
+  }
+  .exp-card img{width:100%;aspect-ratio:16/10;object-fit:cover;}
+  .exp-body{padding:18px 18px 20px;}
+  .exp-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 9px;border-radius:3px;margin-bottom:10px;}
+  .exp-badge.now{background:var(--accent);color:#fff;}
+  .exp-badge.setup{background:var(--border);color:var(--text-dim);}
+  .exp-body h3{font-size:18px;font-weight:700;margin-bottom:8px;}
+  .exp-hook{font-weight:700;font-size:14px;margin-bottom:8px;}
+  .exp-body p.exp-desc{font-size:14px;color:var(--text-dim);margin-bottom:12px;}
+  .exp-meta{font-size:12px;color:var(--text-dim);opacity:.85;line-height:1.5;}
+  .exp-link{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;color:var(--accent);}
+
+  /* ---------- Timeline ---------- */
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--border);}
+  .tl-step{position:relative;padding-bottom:34px;}
+  .tl-step:last-child{padding-bottom:0;}
+  .tl-dot{position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--border);}
+  .tl-step.current{border:1px solid var(--accent);border-radius:8px;background:var(--card);padding:16px;margin-left:-16px;}
+  .tl-step.current .tl-dot{left:-42px;background:var(--accent);width:14px;height:14px;box-shadow:0 0 0 4px rgba(224,67,58,.25);}
+  .tl-phase{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;}
+  .tl-badge{display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:.5px;padding:3px 8px;border-radius:3px;margin-left:8px;vertical-align:middle;}
+  .tl-step h3{font-size:17px;font-weight:700;margin-bottom:6px;}
+  .tl-step p{font-size:14px;color:var(--text-dim);margin-bottom:6px;}
+  .tl-join{font-size:13px;color:var(--text-dim);font-style:italic;}
+
+  /* ---------- Getting here ---------- */
+  .getting-grid{display:grid;grid-template-columns:1fr;gap:32px;}
+  .route-svg{width:100%;height:auto;margin-bottom:18px;}
+  .getting-grid h4{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);}
+  .getting-grid p{font-size:14px;color:var(--text-dim);margin-bottom:20px;}
+
+  /* ---------- Who we are ---------- */
+  .who-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:20px;}
+  .who-person{display:flex;gap:14px;align-items:flex-start;}
+  .who-photo{width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--border);}
+  .who-photo img{width:100%;height:100%;object-fit:cover;}
+  .who-person h4{font-size:15px;font-weight:700;margin-bottom:3px;}
+  .who-person p{font-size:13px;color:var(--text-dim);}
+  .who-blurb{font-size:14px;color:var(--text-dim);margin-bottom:18px;}
+
+  /* ---------- Three ways / CTA ---------- */
+  .touch-grid{display:grid;grid-template-columns:1fr;gap:18px;}
+  .touch-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px 20px;}
+  .touch-card h3{font-size:17px;font-weight:700;margin-bottom:8px;}
+  .touch-card p{font-size:14px;color:var(--text-dim);margin-bottom:16px;}
+  .touch-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .qr-box{
+    width:120px;height:120px;background:#fff;border:1px dashed #999;border-radius:6px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#999;font-size:11px;font-weight:700;letter-spacing:.5px;text-align:center;
+  }
+  .waitlist-form{display:flex;flex-direction:column;gap:10px;max-width:360px;}
+  .waitlist-form input{
+    min-height:44px;padding:0 14px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;
+  }
+  .waitlist-note{font-size:12px;color:var(--text-dim);opacity:.8;}
+  .waitlist-soon{
+    border:1px dashed var(--border);border-radius:6px;padding:14px;font-size:13px;color:var(--text-dim);
+  }
+
+  /* ---------- Renovation stories (reuse pattern) ---------- */
+  .grid{display:grid;grid-template-columns:1fr;gap:20px;}
+  .empty-state{
+    border:1px dashed var(--border);border-radius:10px;padding:44px 24px;text-align:center;
+    color:var(--text-dim);
+  }
+  .empty-state h3{color:var(--text);font-size:18px;margin-bottom:8px;}
+
+  /* ---------- Sticky mobile CTA bar ---------- */
+  .sticky-cta{
+    display:none;position:fixed;left:0;right:0;bottom:0;z-index:200;
+    background:rgba(15,15,16,.97);backdrop-filter:blur(6px);border-top:1px solid var(--border);
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  }
+  .sticky-cta-row{display:flex;gap:8px;max-width:1160px;margin:0 auto;}
+  .sticky-cta-row a{
+    flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;border-radius:6px;text-align:center;padding:0 6px;
+  }
+  .sticky-cta-row .sc-primary{background:var(--accent);color:#fff;}
+  .sticky-cta-row .sc-outline{border:1px solid var(--text-dim);color:var(--text);}
 
   footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
@@ -67,29 +173,41 @@
   .footer-grid li a:hover{color:var(--accent);}
   .footer-bottom{border-top:1px solid var(--border);padding-top:24px;font-size:13px;color:var(--text-dim);text-align:center;}
 
-  @media (max-width:900px){
-    .grid{grid-template-columns:repeat(2,1fr);}
+  @media (min-width:900px){
+    .facts-grid{grid-template-columns:repeat(4,1fr);}
+    .build-grid{grid-template-columns:repeat(3,1fr);}
+    .exp-scroller{overflow-x:visible;display:grid;grid-template-columns:repeat(3,1fr);}
+    .exp-card{flex:none;}
+    .getting-grid{grid-template-columns:1fr 1fr;}
+    .who-grid{grid-template-columns:1fr 1fr;}
+    .touch-grid{grid-template-columns:repeat(3,1fr);}
+    .grid{grid-template-columns:repeat(3,1fr);}
+    .hero h1{font-size:44px;}
+    .hero-content{padding:140px 24px 60px;max-width:720px;}
+    .footer-grid{grid-template-columns:2fr 1fr 1fr 1fr;}
+  }
+  @media (max-width:899px){
     .footer-grid{grid-template-columns:1fr 1fr;}
-    .cat-hero h1{font-size:32px;}
   }
   @media (max-width:640px){
     nav{display:none;}
     .nav-toggle{display:block;}
     nav.nav-open{
-      display:block;
-      position:absolute;
-      top:100%;
-      left:0;
-      right:0;
-      background:var(--bg);
-      border-bottom:1px solid var(--border);
-      padding:16px 24px;
-      z-index:99;
+      display:block;position:absolute;top:100%;left:0;right:0;background:var(--bg);
+      border-bottom:1px solid var(--border);padding:16px 24px;z-index:99;
     }
     nav.nav-open ul{flex-direction:column;gap:16px;}
-    .grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
+    .sticky-cta{display:block;}
+    body{padding-bottom:64px;}
   }
+
+  @media (prefers-reduced-motion: reduce){
+    .scroll-hint{animation:none;}
+    *{scroll-behavior:auto !important;}
+  }
+
+  html{scroll-behavior:smooth;}
 </style>
 </head>
 <body>
@@ -110,28 +228,278 @@
   </div>
 </header>
 
-<div class="cat-banner">
-  <div class="cat-banner-bg" style="background-image:url('https://images.unsplash.com/photo-1661495897609-f0c3fd322a42?q=80&w=1600&auto=format&fit=crop');"></div>
+<!-- ① Hero -->
+<section class="hero">
+  <!-- 撮影メモ: 古民家の外観。草葺屋根が分かる引きの画。曇りより晴れ。横位置。まだ手を入れていない状態。きれいに撮らない、ありのまま。 -->
+  <!-- 差し替え必須 -->
+  <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1786779626128-dafa6ff98deb?q=80&w=1600&auto=format&fit=crop');" role="img" aria-label="A thatched-roof farmhouse in Izu, not yet renovated"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-breadcrumb"><a href="index.html">Home</a> / Izu Renovation</div>
+    <div class="hero-kicker">Shimoda · Izu Peninsula</div>
+    <h1>We're fixing up an old farmhouse in Izu.</h1>
+    <p class="hero-sub">You're invited before it's finished.</p>
+    <p class="hero-body">A thatched-roof house on the coast of the Izu Peninsula, about three hours south of Tokyo. We're turning it into a place where travelers, surfers and the people who actually live here end up in the same room.</p>
+    <p class="hero-body">It's not open yet. Here's the plan — and what you can already come and do with us.</p>
+    <div class="hero-actions">
+      <a href="https://www.youtube.com/@NUMARUJapan" target="_blank" rel="noopener" class="btn btn-accent">Watch us build it</a>
+      <a href="#waitlist" class="btn btn-outline">Tell me when it opens</a>
+    </div>
+  </div>
+  <div class="scroll-hint">↓</div>
+</section>
+
+<!-- ② 30-second facts -->
+<section class="facts">
   <div class="container">
-    <div class="cat-hero-card">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Izu Renovation</div>
-      <div class="cat-hero">
-        <div class="cat-tag">Category</div>
-        <h1>Izu Renovation</h1>
-        <p>Renovating a place in Izu from the ground up — the wins, the setbacks, and everything in between.</p>
-        <div class="cat-count">0 articles</div>
+    <div class="facts-grid">
+      <div>
+        <div class="fact-num">99 m²</div>
+        <div class="fact-label">Thatched-roof farmhouse, plus a 26 m² outbuilding</div>
+      </div>
+      <div>
+        <div class="fact-num">~3 hrs</div>
+        <div class="fact-label">From Tokyo Station, one train</div>
+      </div>
+      <div>
+        <div class="fact-num">Shimoda</div>
+        <div class="fact-label">South tip of the Izu Peninsula</div>
+      </div>
+      <div>
+        <div class="fact-num">2 of us</div>
+        <div class="fact-label">Running it in English and Japanese</div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="container">
-
-  <div class="empty-state">
-    <h3>More coming soon</h3>
-    <p>The next Izu renovation story will appear here.</p>
+<!-- ③ What we're building -->
+<section class="section">
+  <div class="container">
+    <h2>What we're building</h2>
+    <p class="section-lead">Not a hotel. Not a cheap dorm. Something in between, that we couldn't find when we needed it.</p>
+    <div class="build-grid">
+      <div class="build-card">
+        <h3>1. A base, not a bed.</h3>
+        <p>Stay three nights or three months. A kitchen you can actually cook in, a desk you can work at, a place where you unpack instead of living out of your bag.</p>
+      </div>
+      <div class="build-card">
+        <h3>2. A room where you meet people.</h3>
+        <p>Travelers, surfers, remote workers — and the locals we've spent years getting to know. Dinners, barbecues, a beer on the floor. Nobody eats alone here.</p>
+      </div>
+      <div class="build-card">
+        <h3>3. A way into Shimoda.</h3>
+        <p>Shimoda is easy to visit and hard to get into. Almost nothing is in English. We're the door: we translate, we introduce, we know who to call.</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- ④ What you can actually do -->
+<section class="section" style="background:var(--bg-alt);">
+  <div class="container">
+    <h2>What you can actually do</h2>
+    <p class="section-lead">The house isn't ready, but Izu is. These are things we can do with you today — not a wish list.</p>
+
+    <div class="exp-scroller">
+      <div class="exp-card">
+        <!-- 撮影メモ: 下田のビーチでのサーフィン。人物が入っている方がよい。 -->
+        <!-- 差し替え必須 -->
+        <img src="https://images.unsplash.com/photo-1583923126907-3ad43ae0a376?q=80&w=1000&auto=format&fit=crop" alt="A surfer walking on the beach in Shimoda with a surfboard" loading="lazy">
+        <div class="exp-body">
+          <span class="exp-badge now">Available now</span>
+          <h3>Surf</h3>
+          <p class="exp-hook">Beginner-friendly beach breaks, and we come in with you.</p>
+          <p class="exp-desc">Shimoda has some of the cleanest, most forgiving beaches within reach of Tokyo. If you've never stood up on a board, this is a good place to try it. If you've surfed for years, we'll take you to the right beach for the day's swell.</p>
+          <p class="exp-meta">Year-round (wetsuit Nov–May) · Half a day · Beginners welcome · Board rental arranged</p>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <!-- 撮影メモ: 海沿いの遊歩道か、山側の道。人の背中が入るとよい。 -->
+        <!-- 差し替え必須 -->
+        <img src="https://images.unsplash.com/photo-1777718183329-7960b02983dd?q=80&w=1000&auto=format&fit=crop" alt="A winding coastal path along a grassy cliff overlooking the ocean" loading="lazy">
+        <div class="exp-body">
+          <span class="exp-badge now">Available now</span>
+          <h3>Walk the coast and the hills</h3>
+          <p class="exp-hook">The parts of Izu that don't show up on the tourist map.</p>
+          <p class="exp-desc">Cliff paths above the water, quiet forest roads, small shrines nobody visits, and beaches you'll have to yourself. We walk them with you and tell you what you're looking at.</p>
+          <p class="exp-meta">Year-round · 1–4 hours · Easy to moderate · No gear needed</p>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <!-- 撮影メモ: 地元の人と一緒の食卓かBBQ。全員がカメラを見ていない自然な画。 -->
+        <!-- 差し替え必須 -->
+        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1000&auto=format&fit=crop" alt="A small group sitting around a table talking and eating together" loading="lazy">
+        <div class="exp-body">
+          <span class="exp-badge now">Available now</span>
+          <h3>Eat and drink with locals</h3>
+          <p class="exp-hook">This is the one we actually care about.</p>
+          <p class="exp-desc">Dinner at someone's place, a barbecue by the water, or a night in a tiny izakaya where you're the only foreigner in the room and it doesn't matter, because we're translating. Fishermen, farmers, surf shop owners, people who moved here from the city. This is how Shimoda stops being a place you visited.</p>
+          <p class="exp-meta">Year-round · Evenings · Small groups · We translate</p>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <!-- 撮影メモ: 解体・掃除・運搬の作業風景。汚れている方がよい。きれいすぎる画にしない。 -->
+        <!-- 差し替え必須 -->
+        <img src="https://images.unsplash.com/photo-1444419988131-046ed4e5ffd6?q=80&w=1000&auto=format&fit=crop" alt="An unfinished room with peeling wallpaper and a worn wooden floor, mid-renovation" loading="lazy">
+        <div class="exp-body">
+          <span class="exp-badge now">Available now</span>
+          <h3>Help us fix the house</h3>
+          <p class="exp-hook">Come back in two years and point at a wall you built.</p>
+          <p class="exp-desc">Right now the work is unglamorous: clearing, demolition, hauling, scrubbing, painting. No skills required, and you won't be doing it alone. It's the fastest way we know to stop being a tourist and start being someone who was there.</p>
+          <p class="exp-meta">Year-round · Half or full day · No experience needed · Gloves and tools provided</p>
+          <!-- 実装メモ: 参加者向けの安全説明・免責は現地で口頭説明する方針。文面には入れていない。 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ The house, step by step -->
+<section class="section">
+  <div class="container">
+    <h2>The house, step by step</h2>
+    <p class="section-lead">We're not going to pretend this is finished. Here's exactly where we are.</p>
+
+    <div class="timeline">
+      <div class="tl-step current">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 01 <span class="tl-badge">We are here</span></div>
+        <h3>An empty house and a lot of dust</h3>
+        <p>Thatched roof, wooden frame, decades of someone else's life still inside it. First job is emptying it out and finding out what's actually holding it up.</p>
+        <p class="tl-join">You can join: clearing, hauling, demolition.</p>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 02</div>
+        <h3>Roof, frame, floors</h3>
+        <p>The unsexy money. Everything that decides whether this building is still standing in fifty years.</p>
+        <p class="tl-join">You can join: watching real craftsmen work, which is worth more than it sounds.</p>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 03</div>
+        <h3>Rooms to sleep in</h3>
+        <p>Beds, a bathroom that works, hot water, wifi that doesn't drop. The point where people can actually stay.</p>
+        <p class="tl-join">You can join: the first nights, before anything is polished.</p>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 04</div>
+        <h3>The big room</h3>
+        <p>The heart of it. One long table, a kitchen, a place where fifteen people can eat together and nobody has to leave at ten.</p>
+        <p class="tl-join">You can join: the first dinner.</p>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 05</div>
+        <h3>Open</h3>
+        <p>Then it stops being ours and starts being everyone's.</p>
+        <p class="tl-join">You can join: come back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ Getting here -->
+<section class="section" style="background:var(--bg-alt);">
+  <div class="container">
+    <h2>Getting here</h2>
+    <svg class="route-svg" viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Route diagram from Tokyo to Shimoda">
+      <line x1="30" y1="30" x2="570" y2="30" stroke="#2a2a2e" stroke-width="2"/>
+      <circle cx="30" cy="30" r="7" fill="#e0433a"/>
+      <circle cx="570" cy="30" r="7" fill="#e0433a"/>
+      <text x="30" y="52" fill="#f2f0ec" font-size="14" font-family="Poppins, sans-serif" font-weight="700" text-anchor="start">Tokyo</text>
+      <text x="570" y="52" fill="#f2f0ec" font-size="14" font-family="Poppins, sans-serif" font-weight="700" text-anchor="end">Shimoda</text>
+    </svg>
+    <div class="getting-grid">
+      <div>
+        <h4>From Tokyo — one train, no transfers.</h4>
+        <p>The Odoriko limited express runs from Tokyo Station straight to Izukyu-Shimoda. Roughly 2 hours 45 minutes. Or take the Shinkansen to Atami and switch to the Izukyu line.</p>
+      </div>
+      <div>
+        <h4>When to come.</h4>
+        <p>Summer is the beach and it's busy. Autumn is the best weather of the year and almost empty. Winter is cold, clear, and the surf is good. Spring is green and quiet. There is no bad month, only different ones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ Who we are -->
+<section class="section">
+  <div class="container">
+    <h2>Who's doing this</h2>
+    <div class="who-grid">
+      <div class="who-person">
+        <div class="who-photo"><img src="team-yudai.jpg" alt="Yudai, founder of NUMARU Japan" loading="lazy"></div>
+        <div>
+          <h4>Yudai — Founder</h4>
+          <p>35+ countries. Left a corporate track to make things instead.</p>
+        </div>
+      </div>
+      <div class="who-person">
+        <div class="who-photo"><img src="team-oga.jpg" alt="oga, partner at NUMARU Japan" loading="lazy"></div>
+        <div>
+          <h4>oga — Partner</h4>
+          <p>Runs the channel with Yudai and is the one usually standing in front of you right now.</p>
+        </div>
+      </div>
+    </div>
+    <p class="who-blurb">We make videos about real life in Japan — the food, the countryside, the parts that don't make it into guidebooks. This house is the next thing we're making, and we're filming all of it.</p>
+    <a href="https://www.youtube.com/@NUMARUJapan" target="_blank" rel="noopener" class="btn btn-accent">Watch NUMARU Japan on YouTube →</a>
+  </div>
+</section>
+
+<!-- ⑧ Three ways to stay in touch -->
+<section class="section" id="waitlist" style="background:var(--bg-alt);">
+  <div class="container">
+    <h2>Three ways to not forget about this</h2>
+    <div class="touch-grid" style="margin-top:24px;">
+      <div class="touch-card">
+        <h3>1. Watch it happen</h3>
+        <p>We're filming the whole renovation. Subscribe and you'll see the house go from dust to dinner table.</p>
+        <div class="touch-row">
+          <a href="https://www.youtube.com/@NUMARUJapan" target="_blank" rel="noopener" class="btn btn-accent">YouTube</a>
+          <!-- QR差し替え必須：https://www.youtube.com/@NUMARUJapan のQRコード。最小180×180px、余白あり、白背景 -->
+          <div class="qr-box">QR CODE<br>(YouTube)</div>
+        </div>
+      </div>
+
+      <div class="touch-card">
+        <h3>2. Tell me when it opens</h3>
+        <p>One email. When there's a bed you can sleep in, you'll hear from us. Nothing else, ever.</p>
+        <div class="waitlist-soon">
+          Email sign-up is coming soon. For now, message us on Instagram and we'll add you by hand.
+        </div>
+      </div>
+
+      <div class="touch-card">
+        <h3>3. You're in Japan right now?</h3>
+        <p>Then don't wait for the house. Message us and let's figure out when you can come to Shimoda.</p>
+        <div class="touch-row">
+          <a href="https://www.instagram.com/numarujapan/" target="_blank" rel="noopener" class="btn btn-accent">Instagram DM</a>
+          <!-- QR差し替え必須：https://www.instagram.com/numarujapan/ のQRコード。最小180×180px、余白あり、白背景 -->
+          <div class="qr-box">QR CODE<br>(Instagram)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑨ Renovation stories -->
+<section class="section">
+  <div class="container">
+    <h2>Renovation stories</h2>
+    <p class="section-lead">We'll write these as we go — the wins, the setbacks, the permits.</p>
+    <div class="empty-state">
+      <h3>Nothing here yet.</h3>
+      <p>The first post goes up when the first wall comes down.</p>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="container">
@@ -144,7 +512,6 @@
         <h5>Pages</h5>
         <ul>
           <li><a href="index.html#about">About</a></li>
-          <li><a href="#">Private Tour</a></li>
         </ul>
       </div>
       <div>
@@ -167,6 +534,15 @@
     <div class="footer-bottom">© 2026 NUMARU Japan. All rights reserved.</div>
   </div>
 </footer>
+
+<!-- Sticky mobile CTA bar -->
+<div class="sticky-cta">
+  <div class="sticky-cta-row">
+    <a href="https://www.youtube.com/@NUMARUJapan" target="_blank" rel="noopener" class="sc-primary">Subscribe</a>
+    <a href="#waitlist" class="sc-outline">Waitlist</a>
+    <a href="https://www.instagram.com/numarujapan/" target="_blank" rel="noopener" class="sc-outline">Message us</a>
+  </div>
+</div>
 
 <script>
   document.querySelectorAll('.nav-toggle').forEach(function(btn){

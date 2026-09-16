@@ -111,8 +111,8 @@ window.EXPERIENCES = [
   },
   {
     slug: "ueno-music-tour",
-    status: "draft",
-    title: "NEED INFO — working title: A Music-Loving Traveler in Ueno",
+    status: "published", // route + real photos confirmed 2025-09-16
+    title: "Walking Ueno's Classical Music History With a Traveler From Poland",
     category: ["Music"],
     location: "Ueno, Tokyo",
     meetingPoint: "Ueno Station, Park Exit",
@@ -122,18 +122,20 @@ window.EXPERIENCES = [
     nationality: "Poland",
     travelers: 1,
     ageRange: null,
-    heroImage: null,
-    quickOverviewNote: "NEED INFO",
+    heroImage: "ueno-music-hero-shinobazu-pond.jpg",
+    quickOverviewNote: "A three-hour walk tracing Japan's classical music history through Ueno — a concert hall, a historic monument, an arts university campus, a pond, and a market street to end on.",
     story: {
-      opening: null,
-      whoWeMet: null,
-      whyThisPlace: null,
-      experience: null,
-      localDetails: null,
+      opening: "Most tours through Ueno hit the museums and the park's main paths. This one was built around a single, specific interest: the history of classical music in Japan, and how much of it can actually be traced on foot in one neighborhood.",
+      whoWeMet: "A solo traveler from Poland with a real interest in classical music history — the kind of interest that shapes an entire itinerary rather than one stop on it.",
+      whyThisPlace: "Ueno turns out to be one of the only neighborhoods in Tokyo where that history is walkable in a single afternoon: a national concert hall, the site of the country's first Western-style concert, and the campus of Japan's only national arts university, all within a few minutes of each other on foot.",
+      experience: "The walk moved through six stops over three hours. It started at Tokyo Bunka Kaikan, the concert hall that opened in 1961 and has hosted virtually every major visiting orchestra since — the Vienna Philharmonic included — in a building designed by architect Kunio Maekawa, now approaching 65 years old and due for renovation work starting next year. A short walk away is the former site of Sogakudo, where Japan's first full Western-style concert was held; a statue of composer Rentaro Taki marks the spot today. From there, the route passed through the campus of Tokyo University of the Arts — the country's only national arts university, where practice-room music sometimes carries out into the open air — and into Geidai Art Plaza, a free gallery and shop selling work by current students and graduates. The afternoon slowed down at Shinobazu Pond, inside Ueno Park, where visitors can rent rowboats or just sit by the water. It closed at Ameyoko, the market street between Ueno and Okachimachi stations, for one last dose of everyday Tokyo noise before wrapping up.",
+      localDetails: "Tokyo Bunka Kaikan is scheduled to close for renovation work starting next year, so the hall this walk passed through is, for now, still close to the same one that's hosted decades of visiting orchestras. Most visitors to Ueno walk straight past the Sogakudo monument without knowing what it marks.",
       travelerReaction: null,
-      numaruPerspective: null
+      numaruPerspective: "Most people don't think of Ueno as a music neighborhood — it's mostly hidden in plain sight, a concert hall and a small monument that most visitors walk straight past. Building an afternoon specifically around it meant the stops weren't the usual park highlights; they were chosen because they mattered to this one traveler's own interest. That's usually the difference between a generic park walk and one that actually sticks."
     },
-    gallery: []
+    gallery: [
+      "ueno-music-ameyoko-closing.jpg"
+    ]
   },
   {
     slug: "daikoku-night-tokyo",

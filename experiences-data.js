@@ -139,8 +139,13 @@ window.EXPERIENCES = [
   },
   {
     slug: "daikoku-night-tokyo",
-    status: "draft",
-    title: "NEED INFO — working title: Daikoku After Dark",
+    status: "published", // this one is told as a video, not a written article — see videoUrl below
+    // This trip exists as a NUMARU Japan YouTube video rather than a written
+    // gallery. On column.html, entries with a videoUrl link straight to
+    // YouTube instead of experience.html?slug=... — see the render script's
+    // videoUrl handling at the bottom of that file.
+    videoUrl: "https://www.youtube.com/watch?v=y9X0C1CJ8w8",
+    title: "Where Is \"Tokyo Drift\"? Asking Local Car Owners at Daikoku PA",
     category: ["Night Tokyo"],
     location: "Daikoku Parking Area, Yokohama",
     meetingPoint: "Shinjuku Gyoen (pickup) → Daikoku",
@@ -150,16 +155,16 @@ window.EXPERIENCES = [
     nationality: "France",
     travelers: 3,
     ageRange: "mid-20s",
-    heroImage: null,
-    quickOverviewNote: "NEED INFO",
+    heroImage: "https://img.youtube.com/vi/y9X0C1CJ8w8/maxresdefault.jpg",
+    quickOverviewNote: "A night trip to Daikoku Parking Area — Tokyo's most famous car-meetup spot — asking the Japanese car owners who actually gather there why they come, and whether the \"Tokyo Drift\" reputation still holds up.",
     story: {
-      opening: null,
-      whoWeMet: null,
-      whyThisPlace: null,
-      experience: null,
-      localDetails: null,
+      opening: "Daikoku Parking Area has a reputation that precedes it — the real-world spot most associated with \"Tokyo Drift,\" tuned cars, and late-night meets. Three travelers from France wanted to see it for themselves, so we picked them up at Shinjuku Gyoen in the late afternoon and headed for Yokohama as it got dark.",
+      whoWeMet: "Three friends from France — plus whoever turned out to be at Daikoku that night. The trip became as much about the Japanese car owners we talked to there as it was about the drive out.",
+      whyThisPlace: "Daikoku PA, a rest stop on the Yokohama Bayshore Route, has been a nighttime gathering spot for car enthusiasts for decades, and it's the closest real-world reference point most car culture fans have for \"Tokyo Drift.\" Whether that reputation still held up in person was really the question behind the whole trip.",
+      experience: "We arrived after dark, once the cars start showing up — tuned GT-Rs, RX-7s, and Skylines parked in rows under the parking area's lights. Instead of just walking around taking photos, we went up to the Japanese car owners there and asked directly: why Daikoku? What keeps people coming back? One theme came up more than once — several of the people we talked to said fewer young Japanese people care about cars or bother owning one at all these days, which made the enthusiasts still showing up feel less like a trend and more like something they were actively keeping alive.",
+      localDetails: "Daikoku PA sits on the Bayshore Route with Tokyo Bay and the Yokohama Bay Bridge as a backdrop, which is a big part of why it photographs the way it does at night. It's a public parking area, not an organized event — anyone can drive up on any given night, and the crowd is whoever happens to be there.",
       travelerReaction: null,
-      numaruPerspective: null
+      numaruPerspective: "Daikoku shows up in enough car culture content online that it's easy to assume what you're seeing is staged or curated somehow. It isn't — it's a parking area that a certain crowd still shows up to, night after night, for reasons that turned out to be more personal than we expected once we actually asked. That's usually more interesting than the cars themselves."
     },
     gallery: []
   },

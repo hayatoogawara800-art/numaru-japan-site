@@ -50,6 +50,12 @@
   .card:hover{transform:translateY(-4px);}
   .card-img{aspect-ratio:16/10;overflow:hidden;position:relative;}
   .card-img img{width:100%;height:100%;object-fit:cover;}
+  .card-play-badge{
+    position:absolute;top:12px;right:12px;background:rgba(15,15,16,0.75);color:#fff;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;
+    padding:6px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;backdrop-filter:blur(2px);
+  }
+  .card-play-badge svg{width:11px;height:11px;fill:#fff;flex-shrink:0;}
   .card-tag{background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;white-space:nowrap;}
   .card-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px;}
   .card-body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1;}
@@ -213,10 +219,20 @@
       var tag = (exp.category && exp.category[0]) || 'Experience';
       var summary = (exp.quickOverviewNote && exp.quickOverviewNote !== 'NEED INFO') ? exp.quickOverviewNote : '';
       var img = exp.heroImage || '';
+      // Some stories are told as a NUMARU Japan YouTube video rather than a
+      // written article. When videoUrl is set, the whole card links straight
+      // to YouTube (new tab) instead of experience.html?slug=... — no written
+      // page needed for these.
+      var isVideo = !!exp.videoUrl;
+      var href = isVideo ? exp.videoUrl : ('experience.html?slug=' + encodeURIComponent(exp.slug));
+      var linkAttrs = isVideo ? ' target="_blank" rel="noopener"' : '';
+      var playBadge = isVideo
+        ? '<span class="card-play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Watch on YouTube</span>'
+        : '';
       return (
         '<div class="card">' +
-          '<a href="experience.html?slug=' + encodeURIComponent(exp.slug) + '" class="card-link">' +
-            (img ? '<div class="card-img"><img src="' + escapeHtml(img) + '" alt="' + escapeHtml(exp.title) + '" loading="lazy"></div>' : '') +
+          '<a href="' + escapeHtml(href) + '" class="card-link"' + linkAttrs + '>' +
+            (img ? '<div class="card-img"><img src="' + escapeHtml(img) + '" alt="' + escapeHtml(exp.title) + '" loading="lazy">' + playBadge + '</div>' : '') +
             '<div class="card-body">' +
               '<h3>' + escapeHtml(exp.title) + '</h3>' +
               (summary ? '<p>' + escapeHtml(summary) + '</p>' : '') +

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Real Life Vlog | NUMARU Japan</title>
+<title>Column | NUMARU Japan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -27,20 +27,24 @@
   nav a:hover, nav a.active{color:var(--accent);}
   .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
 
-  .cat-banner{position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
-  .cat-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-  .cat-banner .container{position:relative;z-index:1;}
-  .cat-hero-card{background:rgba(255,255,255,0.9);border-radius:14px;padding:28px 32px;max-width:600px;margin:36px 0;box-shadow:0 10px 30px rgba(0,0,0,0.25);}
-  .breadcrumb{font-size:13px;color:#666;margin-bottom:14px;}
+  /* ---------- Page intro (text hub, no photo banner) ---------- */
+  .col-intro{border-bottom:1px solid var(--border);background:var(--bg-alt);padding:48px 0 40px;}
+  .breadcrumb{font-size:13px;color:var(--text-dim);margin-bottom:14px;}
   .breadcrumb a:hover{color:var(--accent);}
+  .col-tag{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:10px;}
+  .col-intro h1{font-size:34px;font-weight:800;margin-bottom:12px;}
+  .col-intro p{color:var(--text-dim);font-size:15px;max-width:620px;}
 
-  .cat-hero{padding:0;}
-  .cat-tag{color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:10px;}
-  .cat-hero h1{font-size:38px;font-weight:800;margin-bottom:12px;color:#1a1a1a;}
-  .cat-hero p{color:#4a4a4a;font-size:15px;}
-  .cat-count{margin-top:14px;font-size:13px;color:#666;}
+  /* ---------- By-topic filter chips (framework only, all point here for now) ---------- */
+  .col-filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+  .col-filter{
+    font-size:13px;font-weight:600;color:var(--text-dim);border:1px solid var(--border);border-radius:20px;
+    padding:6px 16px;
+  }
+  .col-filter.active{color:#fff;background:var(--accent);border-color:var(--accent);}
 
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:56px;}
+  /* ---------- Article card grid (same pattern as video category grids) ---------- */
+  .grid{display:grid;grid-template-columns:1fr;gap:28px;margin:40px 0 56px;}
   .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;display:flex;flex-direction:column;}
   .card-link{display:flex;flex-direction:column;flex:1;color:inherit;text-decoration:none;}
   .card:hover{transform:translateY(-4px);}
@@ -53,11 +57,12 @@
   .card-body p{font-size:14px;color:var(--text-dim);margin-bottom:10px;}
   .card-meta{font-size:12px;color:var(--text-dim);opacity:.8;}
 
-  .pagination{display:flex;justify-content:center;gap:8px;padding-bottom:80px;}
-  .page-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:700;color:var(--text-dim);cursor:pointer;}
-  .page-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .page-btn:hover{border-color:var(--accent);color:var(--text);}
-  .page-btn.disabled{opacity:.35;pointer-events:none;cursor:default;}
+  /* ---------- Empty state (no columns published yet) ---------- */
+  .empty-state{
+    border:1px dashed var(--border);border-radius:10px;padding:60px 24px;text-align:center;
+    color:var(--text-dim);margin:40px 0 80px;
+  }
+  .empty-state h3{color:var(--text);font-size:20px;margin-bottom:10px;}
 
   footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
@@ -67,28 +72,22 @@
   .footer-grid li a:hover{color:var(--accent);}
   .footer-bottom{border-top:1px solid var(--border);padding-top:24px;font-size:13px;color:var(--text-dim);text-align:center;}
 
+  @media (min-width:900px){
+    .grid{grid-template-columns:repeat(3,1fr);}
+  }
   @media (max-width:900px){
-    .grid{grid-template-columns:repeat(2,1fr);}
     .footer-grid{grid-template-columns:1fr 1fr;}
-    .cat-hero h1{font-size:32px;}
   }
   @media (max-width:640px){
     nav{display:none;}
     .nav-toggle{display:block;}
     nav.nav-open{
-      display:block;
-      position:absolute;
-      top:100%;
-      left:0;
-      right:0;
-      background:var(--bg);
-      border-bottom:1px solid var(--border);
-      padding:16px 24px;
-      z-index:99;
+      display:block;position:absolute;top:100%;left:0;right:0;background:var(--bg);
+      border-bottom:1px solid var(--border);padding:16px 24px;z-index:99;
     }
     nav.nav-open ul{flex-direction:column;gap:16px;}
-    .grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
+    .col-intro h1{font-size:28px;}
   }
 </style>
 </head>
@@ -104,34 +103,66 @@
         <li><a href="category-food.html">Japanese Food</a></li>
         <li><a href="category-countryside.html">Countryside</a></li>
         <li><a href="category-izu.html">Izu Renovation</a></li>
-        <li><a href="column.html">Column</a></li>
+        <li><a href="column.html" class="active">Column</a></li>
       </ul>
     </nav>
     <button class="nav-toggle">☰</button>
   </div>
 </header>
 
-<div class="cat-banner">
-  <div class="cat-banner-bg" style="background-image:url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1600&auto=format&fit=crop');"></div>
+<div class="col-intro">
   <div class="container">
-    <div class="cat-hero-card">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Real Life Vlog</div>
-      <div class="cat-hero">
-        <div class="cat-tag">Category</div>
-        <h1>Real Life Vlog</h1>
-        <p>Everyday life in Tokyo, chance encounters, and fleeting moments. The real-size Japan a 25-year-old sees — the kind you won't find in a guidebook.</p>
-        <div class="cat-count" id="category-count">Loading articles…</div>
-      </div>
+    <div class="breadcrumb"><a href="index.html">Home</a> / Column</div>
+    <div class="col-tag">Long Reads</div>
+    <h1>Column</h1>
+    <p>Deeper stories from Japan that don't fit in a video — guides, essays and behind-the-scenes writing from Yudai and oga. This section is separate from our video categories, and updates on its own schedule.</p>
+
+    <!-- 実装メモ: 現時点ではトピック分類が未確定のため、フィルターチップは枠組みのみ。
+         記事が増えてきたら、ここにトピック(例: Guides / Essays / Behind the Scenes)ごとの
+         フィルターを実装する。今は全て「All」のみ表示。 -->
+    <div class="col-filters">
+      <span class="col-filter active">All</span>
     </div>
   </div>
 </div>
 
 <div class="container">
-  <div class="grid" id="category-grid">
-    <p style="color:var(--text-dim);grid-column:1/-1;">Loading videos...</p>
+
+  <!--
+    ============================================================
+    記事カードのテンプレート(枠組み)
+    ============================================================
+    実際にコラム記事を1本追加するときは、以下のブロックをコピーして
+    <div class="grid"> ... </div> の中に貼り付け、内容を差し替えてください。
+    画像は差し替え必須、hrefは記事本体のファイル(例: column-001.html)へのリンクにする。
+
+    <div class="card">
+      <a href="column-001.html" class="card-link">
+        <div class="card-img">
+          <img src="REPLACE-WITH-IMAGE.jpg" alt="REPLACE WITH DESCRIPTIVE ALT TEXT" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>REPLACE WITH ARTICLE TITLE</h3>
+          <p>REPLACE WITH A ONE- OR TWO-LINE SUMMARY OF THE ARTICLE.</p>
+          <div class="card-footer">
+            <div class="card-meta">REPLACE WITH DATE, e.g. September 2026</div>
+            <span class="card-tag">REPLACE WITH TOPIC, e.g. Guide</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    ============================================================
+  -->
+
+  <div class="grid" id="column-grid" style="display:none;">
+    <!-- 記事が追加されたらここに上記テンプレートのカードを並べ、display:noneを外す -->
   </div>
 
-  <div class="pagination" id="category-pagination"></div>
+  <div class="empty-state">
+    <h3>Nothing published here yet.</h3>
+    <p>Our first long-read is on its way. Subscribe on <a href="https://www.youtube.com/@NUMARUJapan" target="_blank" rel="noopener" style="color:var(--accent);">YouTube</a> or follow on <a href="https://www.instagram.com/numarujapan/" target="_blank" rel="noopener" style="color:var(--accent);">Instagram</a> and you'll be the first to know.</p>
+  </div>
+
 </div>
 
 <footer>
@@ -169,13 +200,6 @@
   </div>
 </footer>
 
-<script>
-  window.CATEGORY_CONFIG = {
-    tag: "Real Life Vlog",
-    keywords: ["leaving japan", "living together", "typhoon", "shibuya", "pachinko", "meeting someone", "random salaryman", "casino", "morning routine"]
-  };
-</script>
-<script src="youtube-category-feed.js"></script>
 <script>
   document.querySelectorAll('.nav-toggle').forEach(function(btn){
     btn.addEventListener('click', function(){

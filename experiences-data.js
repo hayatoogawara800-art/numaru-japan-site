@@ -139,11 +139,10 @@ window.EXPERIENCES = [
   },
   {
     slug: "daikoku-night-tokyo",
-    status: "published", // this one is told as a video, not a written article — see videoUrl below
-    // This trip exists as a NUMARU Japan YouTube video rather than a written
-    // gallery. On column.html, entries with a videoUrl link straight to
-    // YouTube instead of experience.html?slug=... — see the render script's
-    // videoUrl handling at the bottom of that file.
+    status: "published", // this trip also exists as a NUMARU Japan YouTube video
+    // The card on column.html opens this written article like every other
+    // story. Because videoUrl is set, experience.html shows a "Watch on
+    // YouTube" CTA near the top of the article linking out to the video.
     videoUrl: "https://www.youtube.com/watch?v=y9X0C1CJ8w8",
     title: "Where Is \"Tokyo Drift\"? Asking Local Car Owners at Daikoku PA",
     category: ["Night Tokyo"],

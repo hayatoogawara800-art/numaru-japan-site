@@ -67,6 +67,25 @@
   .btn-accent{background:var(--accent);color:#fff;}
   .btn-accent:hover{background:var(--accent-dark);}
 
+  /* ---------- Watch-the-video CTA (only rendered when a story has a videoUrl) ---------- */
+  .exp-video-cta{
+    display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);
+    border-radius:8px;padding:16px 20px;margin-bottom:28px;
+  }
+  .exp-video-cta .play-icon{
+    flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .exp-video-cta .play-icon svg{width:14px;height:14px;fill:#fff;}
+  .exp-video-cta .video-copy{flex:1;min-width:0;}
+  .exp-video-cta .video-copy .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:2px;}
+  .exp-video-cta .video-copy .title{font-size:14px;font-weight:700;}
+  .exp-video-cta .btn-accent{flex-shrink:0;padding:0 18px;min-height:40px;font-size:13px;}
+  @media (max-width:480px){
+    .exp-video-cta{flex-wrap:wrap;}
+    .exp-video-cta .btn-accent{width:100%;}
+  }
+
   .back-link{display:inline-block;margin:8px 0 40px;font-size:13px;color:var(--text-dim);}
   .back-link:hover{color:var(--accent);}
 
@@ -197,6 +216,16 @@
       ? '<div class="exp-hero"><img src="' + escapeHtml(exp.heroImage) + '" alt="' + escapeHtml(exp.title || '') + '" loading="eager"></div>'
       : '<div class="exp-hero placeholder">Hero photo not added yet<br>(差し替え必須 — real photo from this trip goes here)</div>';
 
+    // This story also exists as a NUMARU Japan YouTube video — show a CTA
+    // linking out to it. Only rendered when exp.videoUrl is set.
+    var videoCtaHtml = exp.videoUrl
+      ? '<div class="exp-video-cta">' +
+          '<div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>' +
+          '<div class="video-copy"><div class="label">Also on YouTube</div><div class="title">Watch the full trip</div></div>' +
+          '<a href="' + escapeHtml(exp.videoUrl) + '" target="_blank" rel="noopener" class="btn btn-accent">Watch on YouTube</a>' +
+        '</div>'
+      : '';
+
     var qoHtml =
       '<div class="quick-overview"><h4>Trip Details</h4><div class="qo-grid">' +
       '<div class="qo-item"><div class="qo-label">Location</div><div class="qo-value">' + escapeHtml(exp.location) + '</div></div>' +
@@ -224,7 +253,7 @@
     document.getElementById('exp-content').innerHTML =
       '<div class="exp-tags">' + tagsHtml + '</div>' +
       '<h1 class="exp-title">' + escapeHtml(exp.title || 'Untitled experience') + '</h1>' +
-      heroHtml + qoHtml +
+      heroHtml + videoCtaHtml + qoHtml +
       '<div class="prose">' + storyHtml + '</div>' +
       ctaHtml;
   }

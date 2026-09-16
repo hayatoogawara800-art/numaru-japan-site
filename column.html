@@ -219,19 +219,17 @@
       var tag = (exp.category && exp.category[0]) || 'Experience';
       var summary = (exp.quickOverviewNote && exp.quickOverviewNote !== 'NEED INFO') ? exp.quickOverviewNote : '';
       var img = exp.heroImage || '';
-      // Some stories are told as a NUMARU Japan YouTube video rather than a
-      // written article. When videoUrl is set, the whole card links straight
-      // to YouTube (new tab) instead of experience.html?slug=... — no written
-      // page needed for these.
+      // Some stories also exist as a NUMARU Japan YouTube video. The card
+      // still opens the written article like every other story — the video
+      // is linked out from inside experience.html itself — but we show a
+      // small badge here so people know a video is attached before they click.
       var isVideo = !!exp.videoUrl;
-      var href = isVideo ? exp.videoUrl : ('experience.html?slug=' + encodeURIComponent(exp.slug));
-      var linkAttrs = isVideo ? ' target="_blank" rel="noopener"' : '';
       var playBadge = isVideo
-        ? '<span class="card-play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Watch on YouTube</span>'
+        ? '<span class="card-play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Video inside</span>'
         : '';
       return (
         '<div class="card">' +
-          '<a href="' + escapeHtml(href) + '" class="card-link"' + linkAttrs + '>' +
+          '<a href="experience.html?slug=' + encodeURIComponent(exp.slug) + '" class="card-link">' +
             (img ? '<div class="card-img"><img src="' + escapeHtml(img) + '" alt="' + escapeHtml(exp.title) + '" loading="lazy">' + playBadge + '</div>' : '') +
             '<div class="card-body">' +
               '<h3>' + escapeHtml(exp.title) + '</h3>' +

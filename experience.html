@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Experience | NUMARU Japan</title>
+<meta name="description" id="page-description" content="A real experience NUMARU Japan shared with a traveler in Japan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0f10; --bg-alt:#17171a; --card:#1d1d21; --text:#f2f0ec;
+    --text-dim:#a9a7a2; --accent:#e0433a; --accent-dark:#b53129; --border:#2a2a2e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans JP','Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+  h1,h2,h3,h4,.brand{font-family:'Poppins','Noto Sans JP',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:840px;margin:0 auto;padding:0 24px;}
+
+  header{position:sticky;top:0;z-index:100;background:rgba(15,15,16,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--border);}
+  .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1160px;margin:0 auto;}
+  .brand{font-size:22px;font-weight:800;letter-spacing:0.5px;}
+  .brand span{color:var(--accent);}
+  nav ul{list-style:none;display:flex;gap:20px;flex-wrap:wrap;}
+  nav a{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);transition:color .2s;}
+  nav a:hover, nav a.active{color:var(--accent);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
+
+  .breadcrumb{font-size:13px;color:var(--text-dim);margin:28px 0 18px;}
+  .breadcrumb a:hover{color:var(--accent);}
+
+  .exp-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .exp-tag{background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;}
+
+  h1.exp-title{font-size:30px;font-weight:800;line-height:1.3;margin-bottom:22px;}
+
+  .exp-hero{aspect-ratio:16/9;background:var(--card);border-radius:8px;overflow:hidden;margin-bottom:28px;border:1px solid var(--border);}
+  .exp-hero img{width:100%;height:100%;object-fit:cover;}
+  .exp-hero.placeholder{display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:13px;text-align:center;padding:20px;}
+
+  .quick-overview{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px;margin-bottom:36px;}
+  .quick-overview h4{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:14px;}
+  .qo-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;}
+  .qo-item .qo-label{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-dim);margin-bottom:3px;}
+  .qo-item .qo-value{font-size:14px;font-weight:600;}
+
+  .prose{font-size:16px;color:var(--text);}
+  .prose h2{font-size:21px;font-weight:700;margin:36px 0 12px;}
+  .prose p{margin-bottom:16px;color:var(--text-dim);}
+  .prose p.pending{border:1px dashed var(--border);border-radius:6px;padding:14px 16px;font-style:italic;font-size:14px;}
+  .prose blockquote{
+    border-left:3px solid var(--accent);padding:4px 0 4px 18px;margin:24px 0;font-style:italic;color:var(--text);
+  }
+
+  .exp-cta{
+    margin:48px 0 20px;background:var(--card);border:1px solid var(--border);border-radius:8px;
+    padding:28px 24px;text-align:center;
+  }
+  .exp-cta h3{font-size:19px;font-weight:700;margin-bottom:8px;}
+  .exp-cta p{color:var(--text-dim);font-size:14px;margin-bottom:18px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border-radius:6px;
+    font-size:14px;font-weight:700;border:2px solid transparent;
+  }
+  .btn-accent{background:var(--accent);color:#fff;}
+  .btn-accent:hover{background:var(--accent-dark);}
+
+  .back-link{display:inline-block;margin:8px 0 40px;font-size:13px;color:var(--text-dim);}
+  .back-link:hover{color:var(--accent);}
+
+  footer{border-top:1px solid var(--border);padding:56px 0 32px;background:var(--bg-alt);}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;max-width:1160px;margin-left:auto;margin-right:auto;padding:0 24px;}
+  .footer-grid h5{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:16px;}
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:10px;font-size:14px;}
+  .footer-grid li a:hover{color:var(--accent);}
+  .footer-bottom{border-top:1px solid var(--border);padding-top:24px;font-size:13px;color:var(--text-dim);text-align:center;max-width:1160px;margin:0 auto;padding-left:24px;padding-right:24px;}
+
+  @media (max-width:900px){
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    nav{display:none;}
+    .nav-toggle{display:block;}
+    nav.nav-open{
+      display:block;position:absolute;top:100%;left:0;right:0;background:var(--bg);
+      border-bottom:1px solid var(--border);padding:16px 24px;z-index:99;
+    }
+    nav.nav-open ul{flex-direction:column;gap:16px;}
+    .footer-grid{grid-template-columns:1fr;}
+    .qo-grid{grid-template-columns:1fr 1fr;}
+    h1.exp-title{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="brand">NUMARU Japan<span>.</span></a>
+    <nav>
+      <ul>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="category_mockup.html">Real Life Vlog</a></li>
+        <li><a href="category-food.html">Japanese Food</a></li>
+        <li><a href="category-countryside.html">Countryside</a></li>
+        <li><a href="category-izu.html">Izu Renovation</a></li>
+        <li><a href="column.html" class="active">Column</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle">☰</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb" id="exp-breadcrumb"><a href="index.html">Home</a> / <a href="column.html">Column</a> / …</div>
+
+  <div id="exp-content">
+    <p style="color:var(--text-dim);">Loading…</p>
+  </div>
+
+  <a href="column.html" class="back-link">← Back to Column</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="brand" style="margin-bottom:12px;">NUMARU Japan<span>.</span></div>
+      <p style="color:var(--text-dim);font-size:14px;max-width:280px;">Unfiltered real life in Japan, from a Japanese guy who's traveled to 35+ countries.</p>
+    </div>
+    <div>
+      <h5>Pages</h5>
+      <ul>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="column.html">Column</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Categories</h5>
+      <ul>
+        <li><a href="category_mockup.html">Real Life Vlog</a></li>
+        <li><a href="category-food.html">Japanese Food</a></li>
+        <li><a href="category-countryside.html">Countryside</a></li>
+        <li><a href="category-izu.html">Izu Renovation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Follow</h5>
+      <ul>
+        <li><a href="https://www.youtube.com/@NUMARUJapan" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="https://www.instagram.com/numarujapan/" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 NUMARU Japan. All rights reserved.</div>
+</footer>
+
+<script src="experiences-data.js"></script>
+<script>
+  document.querySelectorAll('.nav-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var nav = btn.parentElement.querySelector('nav');
+      if (nav) nav.classList.toggle('nav-open');
+    });
+  });
+
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = str == null ? '' : str;
+    return div.innerHTML;
+  }
+
+  function formatDate(iso){
+    if (!iso) return 'NEED INFO';
+    var d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  function pendingOrText(label, value){
+    if (value) {
+      return '<h2>' + escapeHtml(label) + '</h2><p>' + escapeHtml(value) + '</p>';
+    }
+    return '<h2>' + escapeHtml(label) + '</h2><p class="pending">This part of the story is still being written.</p>';
+  }
+
+  function renderExperience(exp){
+    document.getElementById('page-title').textContent = (exp.title || 'Experience') + ' | NUMARU Japan';
+    document.getElementById('page-description').setAttribute('content', exp.quickOverviewNote && exp.quickOverviewNote !== 'NEED INFO' ? exp.quickOverviewNote : 'A real experience NUMARU Japan shared with a traveler in Japan.');
+    document.getElementById('exp-breadcrumb').innerHTML =
+      '<a href="index.html">Home</a> / <a href="column.html">Column</a> / ' + escapeHtml(exp.title || 'Experience');
+
+    var tagsHtml = (exp.category || []).map(function(c){ return '<span class="exp-tag">' + escapeHtml(c) + '</span>'; }).join('');
+
+    var heroHtml = exp.heroImage
+      ? '<div class="exp-hero"><img src="' + escapeHtml(exp.heroImage) + '" alt="' + escapeHtml(exp.title || '') + '" loading="eager"></div>'
+      : '<div class="exp-hero placeholder">Hero photo not added yet<br>(差し替え必須 — real photo from this trip goes here)</div>';
+
+    var qoHtml =
+      '<div class="quick-overview"><h4>Trip Details</h4><div class="qo-grid">' +
+      '<div class="qo-item"><div class="qo-label">Location</div><div class="qo-value">' + escapeHtml(exp.location) + '</div></div>' +
+      '<div class="qo-item"><div class="qo-label">Duration</div><div class="qo-value">' + escapeHtml(exp.duration) + '</div></div>' +
+      '<div class="qo-item"><div class="qo-label">Traveler(s)</div><div class="qo-value">' + escapeHtml(exp.travelers) + ' from ' + escapeHtml(exp.nationality) + '</div></div>' +
+      '<div class="qo-item"><div class="qo-label">Date</div><div class="qo-value">' + escapeHtml(formatDate(exp.date)) + '</div></div>' +
+      '</div></div>';
+
+    var story = exp.story || {};
+    var storyHtml =
+      pendingOrText('Who We Met', story.opening ? (story.opening + (story.whoWeMet ? ' ' + story.whoWeMet : '')) : story.whoWeMet) +
+      pendingOrText('Why We Chose This Place', story.whyThisPlace) +
+      pendingOrText('The Experience', story.experience) +
+      pendingOrText('Local Details', story.localDetails) +
+      pendingOrText('Traveler Reaction', story.travelerReaction) +
+      pendingOrText('NUMARU Perspective', story.numaruPerspective);
+
+    var ctaHtml =
+      '<div class="exp-cta">' +
+      '<h3>Want an experience like this?</h3>' +
+      '<p>We arrange private local experiences for travelers who want to see a different side of Japan. Message us on Instagram and let\'s figure out what fits you.</p>' +
+      '<a href="https://www.instagram.com/numarujapan/" target="_blank" rel="noopener" class="btn btn-accent">Message NUMARU on Instagram</a>' +
+      '</div>';
+
+    document.getElementById('exp-content').innerHTML =
+      '<div class="exp-tags">' + tagsHtml + '</div>' +
+      '<h1 class="exp-title">' + escapeHtml(exp.title || 'Untitled experience') + '</h1>' +
+      heroHtml + qoHtml +
+      '<div class="prose">' + storyHtml + '</div>' +
+      ctaHtml;
+  }
+
+  function init(){
+    var params = new URLSearchParams(window.location.search);
+    var slug = params.get('slug');
+    var list = window.EXPERIENCES || [];
+    var exp = list.find(function(e){ return e.slug === slug; });
+
+    if (!exp) {
+      document.getElementById('exp-content').innerHTML =
+        '<p style="color:var(--text-dim);">We couldn\'t find that story. <a href="column.html" style="color:var(--accent);">Back to Column</a>.</p>';
+      return;
+    }
+    renderExperience(exp);
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

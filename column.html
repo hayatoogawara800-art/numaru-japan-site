@@ -129,33 +129,16 @@
 <div class="container">
 
   <!--
-    ============================================================
-    記事カードのテンプレート(枠組み)
-    ============================================================
-    実際にコラム記事を1本追加するときは、以下のブロックをコピーして
-    <div class="grid"> ... </div> の中に貼り付け、内容を差し替えてください。
-    画像は差し替え必須、hrefは記事本体のファイル(例: column-001.html)へのリンクにする。
-
-    <div class="card">
-      <a href="column-001.html" class="card-link">
-        <div class="card-img">
-          <img src="REPLACE-WITH-IMAGE.jpg" alt="REPLACE WITH DESCRIPTIVE ALT TEXT" loading="lazy">
-        </div>
-        <div class="card-body">
-          <h3>REPLACE WITH ARTICLE TITLE</h3>
-          <p>REPLACE WITH A ONE- OR TWO-LINE SUMMARY OF THE ARTICLE.</p>
-          <div class="card-footer">
-            <div class="card-meta">REPLACE WITH DATE, e.g. September 2026</div>
-            <span class="card-tag">REPLACE WITH TOPIC, e.g. Guide</span>
-          </div>
-        </div>
-      </a>
-    </div>
-    ============================================================
+    実装メモ: 「Experience Stories」(旅行者との実体験記事)は experiences-data.js
+    が唯一のデータソース。新しい記事を1本追加するときは、そのファイルに
+    オブジェクトを1つ複製・記入し、status を "published" に変更するだけでよい。
+    このページ側のJS(下部)が自動でカードを描画する。手書きでカードを
+    追加する必要はない。公開中の記事が0件の間は、下の empty-state が
+    そのまま表示される。
   -->
 
   <div class="grid" id="column-grid" style="display:none;">
-    <!-- 記事が追加されたらここに上記テンプレートのカードを並べ、display:noneを外す -->
+    <!-- experiences-data.js の status:"published" な記事から自動描画される -->
   </div>
 
   <div class="empty-state">
@@ -200,6 +183,7 @@
   </div>
 </footer>
 
+<script src="experiences-data.js"></script>
 <script>
   document.querySelectorAll('.nav-toggle').forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -207,6 +191,48 @@
       if (nav) nav.classList.toggle('nav-open');
     });
   });
+
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = str == null ? '' : str;
+    return div.innerHTML;
+  }
+
+  // Renders only "published" Experience stories (Column > Experience Stories)
+  // from experiences-data.js. Until at least one story is published, the
+  // empty-state message below stays visible — this section never shows
+  // fake/placeholder cards as if they were real articles.
+  (function renderExperienceCards(){
+    var grid = document.getElementById('column-grid');
+    var emptyState = document.querySelector('.empty-state');
+    var list = (window.EXPERIENCES || []).filter(function(e){ return e.status === 'published'; });
+
+    if (!grid || list.length === 0) return; // keep empty-state as-is
+
+    grid.innerHTML = list.map(function(exp){
+      var tag = (exp.category && exp.category[0]) || 'Experience';
+      var summary = (exp.quickOverviewNote && exp.quickOverviewNote !== 'NEED INFO') ? exp.quickOverviewNote : '';
+      var img = exp.heroImage || '';
+      return (
+        '<div class="card">' +
+          '<a href="experience.html?slug=' + encodeURIComponent(exp.slug) + '" class="card-link">' +
+            (img ? '<div class="card-img"><img src="' + escapeHtml(img) + '" alt="' + escapeHtml(exp.title) + '" loading="lazy"></div>' : '') +
+            '<div class="card-body">' +
+              '<h3>' + escapeHtml(exp.title) + '</h3>' +
+              (summary ? '<p>' + escapeHtml(summary) + '</p>' : '') +
+              '<div class="card-footer">' +
+                '<div class="card-meta">' + escapeHtml(exp.location) + '</div>' +
+                '<span class="card-tag">' + escapeHtml(tag) + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</a>' +
+        '</div>'
+      );
+    }).join('');
+
+    grid.style.display = '';
+    if (emptyState) emptyState.style.display = 'none';
+  })();
 </script>
 </body>
 </html>

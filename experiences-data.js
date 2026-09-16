@@ -78,29 +78,36 @@ window.EXPERIENCES = [
   },
   {
     slug: "nagatoro-day-trip",
-    status: "draft",
-    title: "NEED INFO — working title: A Full Day Outside Tokyo in Nagatoro",
+    status: "published", // text + real photos confirmed; traveler count and roles confirmed by NUMARU (2025-09-16)
+    title: "A Day in the Saitama Countryside With Two Polish Brothers and Their Belgian Friend",
     category: ["Nature", "Day Trip"],
-    location: "Nagatoro, Saitama",
-    meetingPoint: "Shinjuku (pickup) → Nagatoro",
+    location: "Nagatoro & Kawagoe, Saitama",
+    meetingPoint: "Shinjuku (pickup) → Nagatoro → Kawagoe",
     date: "2025-09-03",
     duration: "10 hours",
     startEnd: "10:00–20:00",
     nationality: "Poland / Belgium",
+    // Confirmed by NUMARU: 3 travelers total. Two of the three (Poland) are
+    // brothers; the third (Belgium) is a close friend traveling with them.
     travelers: 3,
-    ageRange: "mid-20s",
-    heroImage: null,
-    quickOverviewNote: "NEED INFO",
+    ageRange: "mid-to-late 20s",
+    heroImage: "nagatoro-hero-riverside-group.jpg",
+    quickOverviewNote: "A 10-hour countryside day trip from Tokyo, moving between the old streets of Kawagoe and the river rock formations of Nagatoro, with a hot spring at the end of the day.",
     story: {
-      opening: null,
+      opening: "They wanted a full day away from Tokyo — real nature, small-town streets, and none of the usual crowds. So we met at Shinjuku at 10am and spent the next ten hours moving between two very different sides of Saitama.",
       whoWeMet: null,
-      whyThisPlace: null,
-      experience: null,
-      localDetails: null,
-      travelerReaction: null,
-      numaruPerspective: null
+      whyThisPlace: "Kawagoe is barely half an hour from central Tokyo but feels like a different era — a preserved Edo-period street lined with clay-walled warehouses and a wooden bell tower that's still rung by hand. Nagatoro, another hour or so further out, trades that for river valleys and flat rock formations along the Arakawa. Together the two gave the group a real contrast to the Tokyo they'd already seen.",
+      experience: "The afternoon started in Nagatoro, on the iwadatami — the long, flat rock formations that line the Arakawa river — watching the traditional boats drift past. Along the way, the group picked up kyuri no ichihonzuke: a whole cucumber, pickled and served ice-cold on a stick, a local specialty that caught all three of them off guard. After a stop for sushi, the day shifted to Kawagoe's old town as evening set in, ending at the wooden Toki no Kane bell tower under a sky that had turned completely orange. The day itself ended at a hot spring — a proper reset after ten hours on the move.",
+      localDetails: "Kyuri no ichihonzuke — a whole pickled cucumber served cold on a stick — is sold from small stands around Nagatoro and the wider Chichibu area. It's the kind of hyper-local snack that doesn't show up on most \"what to eat in Japan\" lists, and it only really comes up if you're walking the streets with someone who already knows to look for it.",
+      travelerReaction: "\"It didn't feel like a typical tour at all — more like spending the day with a good friend! We laughed, shared stories, and enjoyed every moment together. Exploring the countryside and relaxing in the hot spring felt so special, and I'll definitely remember this day for a long time.\"",
+      numaruPerspective: "Most people who come to Japan spend their days moving between neighborhoods in central Tokyo. But some of the best days we've had with travelers happen once we leave the city behind entirely. This was one of those days — no checklist, just two brothers and a good friend, some countryside air, and a hot spring at the end of it."
     },
-    gallery: []
+    gallery: [
+      "nagatoro-kawagoe-bell-tower-group.jpg",
+      "nagatoro-iwadatami-landscape.jpg",
+      "nagatoro-cucumber-snack.jpg",
+      "nagatoro-group-closing.jpg"
+    ]
   },
   {
     slug: "ueno-music-tour",
@@ -156,8 +163,8 @@ window.EXPERIENCES = [
   },
   {
     slug: "akihabara-ueno",
-    status: "draft",
-    title: "NEED INFO — working title: Akihabara and Ueno in One Afternoon",
+    status: "published", // text drafted from IG post (@numarujapan, 湯島天満宮, 2025-11-26); real photos added 2025-09-16
+    title: "A Conversation-First Afternoon in Tokyo With Three Friends From Ukraine",
     category: ["Culture", "Local Life"],
     location: "Akihabara & Ueno, Tokyo",
     meetingPoint: "Akihabara Station",
@@ -167,17 +174,22 @@ window.EXPERIENCES = [
     nationality: "Ukraine",
     travelers: 3,
     ageRange: "30s–40s",
-    heroImage: null,
-    quickOverviewNote: "NEED INFO",
+    heroImage: "akihabara-hero-yushima-shrine.jpg",
+    quickOverviewNote: "A conversation-focused afternoon moving from Akihabara through a quiet shrine, Ueno Park, and an izakaya dinner.",
     story: {
-      opening: null,
-      whoWeMet: null,
-      whyThisPlace: null,
-      experience: null,
-      localDetails: null,
-      travelerReaction: null,
-      numaruPerspective: null
+      opening: "They met us at Akihabara Station with four hours to spend. By their own account afterward, they weren't just there to see places — they wanted to talk, ask questions, and actually understand what they were looking at.",
+      whoWeMet: "A close group of three friends from Ukraine.",
+      whyThisPlace: "Akihabara draws people in for the electronics and anime stores, but four hours is enough to go further than that. So instead of stopping there, we moved on foot toward Ueno.",
+      experience: "Across the four hours, the afternoon moved through: Ameyoko, the shopping street next to Ueno, for its lively market and local, unpolished atmosphere; a quiet shrine — Yushima Tenmangu, with its rows of white lanterns and red banners — where the crowds thinned out and we could slow down; Ueno Park, decked out for the season with Christmas lights and a small lineup of Santa Claus statues, for open green space after the density of the shopping streets; an izakaya dinner, where most of the actual conversation happened; and a walk through an older, traditional part of town, on streets that still look like an earlier Tokyo.",
+      localDetails: "Yushima Tenmangu is easy to miss if you don't already know it's there — a shrine known for its wisteria and plum blossoms, tucked a short walk from Ueno's busier streets, and usually far quieter than the shrines most first-time visitors get taken to.",
+      travelerReaction: "\"Thanks a lot for the tour — and even more for the conversations and for answering all our questions. We spent the day discovering Tokyo not only through its sights, but through stories, culture, and genuine dialogue... A conversation-focused tour that helped us understand so many different aspects of Japan. Every moment felt meaningful.\"",
+      numaruPerspective: "Akihabara and Ueno both show up on almost every Tokyo itinerary, usually as two separate stops squeezed between bigger sights. What made this afternoon different wasn't the places themselves — it was treating four hours as one unhurried conversation that happened to move through a market, a shrine, a park, and a dinner table. That's usually what people remember, more than the name of the shrine."
     },
-    gallery: []
+    gallery: [
+      "akihabara-shrine-selfie.jpg",
+      "akihabara-ueno-park-christmas.jpg",
+      "akihabara-izakaya-dinner.jpg",
+      "akihabara-group-closing.jpg"
+    ]
   }
 ];

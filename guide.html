@@ -31,6 +31,12 @@
   .breadcrumb{font-size:13px;color:var(--text-dim);margin:28px 0 18px;}
   .breadcrumb a:hover{color:var(--accent);}
 
+  .guide-hero{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:var(--card);margin-bottom:28px;border:1px solid var(--border);}
+  .guide-hero img{width:100%;height:100%;object-fit:cover;}
+
+  .guide-photo{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:var(--card);margin:18px 0 4px;border:1px solid var(--border);}
+  .guide-photo img{width:100%;height:100%;object-fit:cover;}
+
   .guide-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
   .guide-tag{background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;}
   .guide-tag.segment{background:transparent;border:1px solid var(--border);color:var(--text-dim);}
@@ -181,11 +187,19 @@
       (guide.tags || []).map(function(t){ return '<span class="guide-tag">' + escapeHtml(t) + '</span>'; }).join('') +
       (guide.segmentLabel ? '<span class="guide-tag segment">' + escapeHtml(guide.segmentLabel) + '</span>' : '');
 
+    var heroHtml = guide.heroImage
+      ? '<div class="guide-hero"><img src="' + escapeHtml(guide.heroImage) + '" alt="' + escapeHtml(guide.title || 'Guide') + '" loading="lazy"></div>'
+      : '';
+
     var itemsHtml = (guide.items || []).map(function(item){
+      var photoHtml = item.photo
+        ? '<div class="guide-photo"><img src="' + escapeHtml(item.photo) + '" alt="' + escapeHtml(item.heading || '') + '" loading="lazy"></div>'
+        : '';
       return (
         '<div class="guide-item">' +
           '<h2>' + escapeHtml(item.heading) + '</h2>' +
           '<p>' + escapeHtml(item.body) + '</p>' +
+          photoHtml +
         '</div>'
       );
     }).join('');
@@ -202,6 +216,7 @@
       '</div>';
 
     document.getElementById('guide-content').innerHTML =
+      heroHtml +
       '<div class="guide-tags">' + tagsHtml + '</div>' +
       '<h1 class="guide-title">' + escapeHtml(guide.title || 'Untitled guide') + '</h1>' +
       '<p class="guide-hook">' + escapeHtml(guide.hook || '') + '</p>' +

@@ -43,12 +43,17 @@
   }
   .col-filter.active{color:#fff;background:var(--accent);border-color:var(--accent);}
 
-  /* ---------- Article card grid (same pattern as video category grids) ---------- */
-  .grid{display:grid;grid-template-columns:1fr;gap:28px;margin:40px 0 56px;}
-  .card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;display:flex;flex-direction:column;}
+  /* ---------- Article card grid (same pattern as video category grids) ----------
+     Card structure (per UX brief): [IMAGE] / Category · Location / Title /
+     Short Description / Read Story →. Photo is always first in DOM order so
+     mobile naturally scrolls Photo → Title → Description. Image ratio is
+     fixed site-wide (4:3) so cards line up evenly and photos read as large,
+     real, human-scale scenes rather than thin decorative strips. */
+  .grid{display:grid;grid-template-columns:1fr;gap:32px;margin:40px 0 56px;}
+  .card{background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--border);transition:transform .2s;display:flex;flex-direction:column;}
   .card-link{display:flex;flex-direction:column;flex:1;color:inherit;text-decoration:none;}
   .card:hover{transform:translateY(-4px);}
-  .card-img{aspect-ratio:16/10;overflow:hidden;position:relative;}
+  .card-img{aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--bg-alt);}
   .card-img img{width:100%;height:100%;object-fit:cover;}
   .card-play-badge{
     position:absolute;top:12px;right:12px;background:rgba(15,15,16,0.75);color:#fff;
@@ -59,13 +64,14 @@
   /* Guide cards have no hero photo (they're general guides, not tied to a
      real trip), so their badge sits inline above the title instead of
      overlaid on an image — same look, static position. */
-  .card-body > .card-play-badge{position:static;background:var(--bg-alt);border:1px solid var(--border);color:var(--text-dim);margin-bottom:10px;}
-  .card-tag{background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;white-space:nowrap;}
-  .card-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px;}
-  .card-body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1;}
-  .card-body h3{font-size:17px;font-weight:700;margin-bottom:8px;}
-  .card-body p{font-size:14px;color:var(--text-dim);margin-bottom:10px;}
-  .card-meta{font-size:12px;color:var(--text-dim);opacity:.8;}
+  .card-body > .card-play-badge{position:static;background:var(--bg-alt);border:1px solid var(--border);color:var(--text-dim);margin-bottom:10px;width:fit-content;}
+  .card-kicker{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent);margin-bottom:8px;flex-wrap:wrap;}
+  .card-kicker .dot{color:var(--text-dim);font-weight:400;}
+  .card-kicker .card-loc{color:var(--text-dim);text-transform:none;letter-spacing:0;font-weight:600;}
+  .card-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1;}
+  .card-body h3{font-size:18px;font-weight:700;margin-bottom:8px;line-height:1.35;}
+  .card-body p{font-size:14px;color:var(--text-dim);margin-bottom:14px;}
+  .card-read-more{margin-top:auto;padding-top:4px;font-size:13px;font-weight:700;color:var(--accent);}
 
   /* ---------- Empty state (no columns published yet) ---------- */
   .empty-state{
@@ -82,8 +88,8 @@
   .footer-grid li a:hover{color:var(--accent);}
   .footer-bottom{border-top:1px solid var(--border);padding-top:24px;font-size:13px;color:var(--text-dim);text-align:center;}
 
-  @media (min-width:900px){
-    .grid{grid-template-columns:repeat(3,1fr);}
+  @media (min-width:700px){
+    .grid{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:900px){
     .footer-grid{grid-template-columns:1fr 1fr;}
@@ -228,8 +234,8 @@
           title: exp.title,
           summary: (exp.quickOverviewNote && exp.quickOverviewNote !== 'NEED INFO') ? exp.quickOverviewNote : '',
           img: exp.heroImage || '',
-          tag: (exp.category && exp.category[0]) || 'Experience',
-          meta: exp.location,
+          category: (exp.category && exp.category[0]) || 'Experience',
+          location: exp.location || '',
           href: 'experience.html?slug=' + encodeURIComponent(exp.slug),
           // Some stories also exist as a NUMARU Japan YouTube video. The card
           // still opens the written article — the video link lives inside
@@ -248,8 +254,8 @@
           title: guide.title,
           summary: guide.metaDescription || '',
           img: guide.heroImage || '',
-          tag: (guide.tags && guide.tags[0]) || 'Guide',
-          meta: guide.segmentLabel || 'Guide',
+          category: (guide.tags && guide.tags[0]) || 'Guide',
+          location: guide.segmentLabel || '',
           href: 'guide.html?slug=' + encodeURIComponent(guide.slug),
           badge: '<span class="card-play-badge card-guide-badge">Guide</span>'
         };
@@ -259,19 +265,25 @@
 
     if (!grid || list.length === 0) return; // keep empty-state as-is
 
+    // Card structure: [IMAGE] / Category · Location (kicker) / Title /
+    // Short Description / Read Story →. Photo always renders first in DOM
+    // order (mobile scroll = Photo → Title → Description automatically).
     grid.innerHTML = list.map(function(card){
+      var kicker =
+        '<div class="card-kicker">' +
+          escapeHtml(card.category) +
+          (card.location ? '<span class="dot">&middot;</span><span class="card-loc">' + escapeHtml(card.location) + '</span>' : '') +
+        '</div>';
       return (
         '<div class="card">' +
           '<a href="' + escapeHtml(card.href) + '" class="card-link">' +
             (card.img ? '<div class="card-img"><img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.title) + '" loading="lazy">' + card.badge + '</div>' : '') +
             '<div class="card-body">' +
               (!card.img ? card.badge : '') +
+              kicker +
               '<h3>' + escapeHtml(card.title) + '</h3>' +
               (card.summary ? '<p>' + escapeHtml(card.summary) + '</p>' : '') +
-              '<div class="card-footer">' +
-                '<div class="card-meta">' + escapeHtml(card.meta) + '</div>' +
-                '<span class="card-tag">' + escapeHtml(card.tag) + '</span>' +
-              '</div>' +
+              '<div class="card-read-more">Read Story &rarr;</div>' +
             '</div>' +
           '</a>' +
         '</div>'

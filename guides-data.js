@@ -30,7 +30,12 @@
 window.GUIDES = [
   {
     slug: "cheap-eats-tokyo-under-1000-yen",
-    status: "published",
+    // Pulled back to draft: no real NUMARU photo matches this specific list
+    // (it doesn't overlap with a documented trip like the others below), and
+    // we don't use generic stock "Japan-ish" photos on this site. Re-publish
+    // once we have real photos of an actual cheap-eats outing, or narrow the
+    // article to a specific real place we've photographed.
+    status: "draft",
     segment: "budget-2030",
     segmentLabel: "For budget-conscious travelers",
     primaryKeyword: "cheap eats tokyo under 1000 yen",
@@ -78,12 +83,16 @@ window.GUIDES = [
     category: ["Culture"],
     title: "5 Tokyo Shrines Locals Visit That Most Tourists Walk Right Past",
     metaDescription: "Skip the crowds at Senso-ji. These 5 shrines and quiet cultural spots in Tokyo are where locals actually go — and most visitors never hear about them.",
-    heroImage: null,
+    // Real photo reuse: this is the same Yushima Tenmangu we visited and
+    // photographed for the Akihabara & Ueno experience story — genuinely
+    // the place this item talks about, not a generic stand-in.
+    heroImage: "akihabara-hero-yushima-shrine.jpg",
     hook: "Tokyo's best-known shrines and temples are worth seeing, but they're also the reason so many visitors leave feeling like they experienced Japan through a crowd of other tourists' shoulders. The quieter alternative is real, and it's not hidden — it's just not marketed. Here are five spots that reward a little extra walking.",
     items: [
       {
         heading: "Yushima Tenmangu, Ueno",
-        body: "Yushima Tenmangu is a shrine known for its wisteria and plum blossoms, a short walk from Ueno's busier streets and usually far quieter than the shrines most first-time visitors get taken to. Rows of white lanterns and red banners make it visually striking without needing a festival day to justify the visit. We actually walked a small group through here as part of a longer afternoon — you can read that story in our Akihabara & Ueno column piece."
+        body: "Yushima Tenmangu is a shrine known for its wisteria and plum blossoms, a short walk from Ueno's busier streets and usually far quieter than the shrines most first-time visitors get taken to. Rows of white lanterns and red banners make it visually striking without needing a festival day to justify the visit. We actually walked a small group through here as part of a longer afternoon — you can read that story in our Akihabara & Ueno column piece.",
+        photo: "akihabara-shrine-selfie.jpg"
       },
       {
         heading: "Neighborhood shrines with no name recognition",
@@ -118,12 +127,15 @@ window.GUIDES = [
     category: ["Nature", "Day Trip"],
     title: "5 Easy Day Trips From Tokyo When You Just Need to See Trees",
     metaDescription: "You don't need a rental car to get out of Tokyo. These 5 nature day trips are reachable by train and worth the full day away from the city.",
-    heroImage: null,
+    // Real photo reuse: the actual Nagatoro riverside group shot from our
+    // real 10-hour Nagatoro & Kawagoe trip — this is the first item below.
+    heroImage: "nagatoro-hero-riverside-group.jpg",
     hook: "A week of neon and train announcements is enough to make anyone want a day that's mostly sky, trees, and water. The good news is that real countryside isn't far from Tokyo, and most of it doesn't require a car — just a train ticket and a full day.",
     items: [
       {
         heading: "Nagatoro, Saitama",
-        body: "Nagatoro sits about two hours from central Tokyo and trades the city entirely for river valleys and the iwadatami — long, flat rock formations that line the Arakawa river. It's a full-day trip rather than a half-day detour, but that's part of the appeal: enough time to actually slow down rather than rush between two stops. We took a small group here for a full ten-hour day — the real story, photos included, is in our Nagatoro column piece."
+        body: "Nagatoro sits about two hours from central Tokyo and trades the city entirely for river valleys and the iwadatami — long, flat rock formations that line the Arakawa river. It's a full-day trip rather than a half-day detour, but that's part of the appeal: enough time to actually slow down rather than rush between two stops. We took a small group here for a full ten-hour day — the real story, photos included, is in our Nagatoro column piece.",
+        photo: "nagatoro-iwadatami-landscape.jpg"
       },
       {
         heading: "Kawagoe, Saitama",
@@ -158,7 +170,9 @@ window.GUIDES = [
     category: ["Night Tokyo", "Music"],
     title: "5 Tokyo Night Scenes That Have Nothing to Do With Shibuya Crossing",
     metaDescription: "Shibuya Crossing at night is a photo op. These 5 Tokyo night scenes are where actual subcultures gather — car meets, underground music, and more.",
-    heroImage: null,
+    // Real photo reuse: the actual Daikoku PA video thumbnail — the first
+    // item below is literally this trip, filmed and published by NUMARU.
+    heroImage: "https://img.youtube.com/vi/y9X0C1CJ8w8/maxresdefault.jpg",
     hook: "Shibuya Crossing at night is worth seeing once, but it's a photo op more than an experience. The more interesting version of Tokyo after dark happens in scattered, specific places where a genuine subculture — not a tourist crowd — actually gathers.",
     items: [
       {
@@ -190,7 +204,13 @@ window.GUIDES = [
   },
   {
     slug: "tokyo-first-time-visitor-questions-answered",
-    status: "published",
+    // Pulled back to draft: this is general first-timer Q&A, not tied to a
+    // specific photographed place or trip, so there's no real NUMARU photo
+    // that genuinely matches it — and we don't use generic stock "Japan-ish"
+    // photos on this site. Re-publish once we have a real photo that fits
+    // (e.g. a candid shot of a first-time traveler somewhere in Tokyo), or
+    // narrow this to a specific real outing we've documented.
+    status: "draft",
     segment: "first-timer-family",
     segmentLabel: "For first-time visitors",
     primaryKeyword: "tokyo first time visitor tips 2026",

@@ -34,11 +34,20 @@
   .exp-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
   .exp-tag{background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;}
 
-  h1.exp-title{font-size:30px;font-weight:800;line-height:1.3;margin-bottom:22px;}
+  h1.exp-title{font-size:30px;font-weight:800;line-height:1.3;margin-bottom:8px;}
+  .exp-location-line{display:flex;align-items:center;gap:6px;color:var(--text-dim);font-size:14px;font-weight:600;margin-bottom:22px;}
+  .exp-location-line svg{width:14px;height:14px;fill:var(--accent);flex-shrink:0;}
 
   .exp-hero{aspect-ratio:16/9;background:var(--card);border-radius:8px;overflow:hidden;margin-bottom:28px;border:1px solid var(--border);}
   .exp-hero img{width:100%;height:100%;object-fit:cover;}
   .exp-hero.placeholder{display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:13px;text-align:center;padding:20px;}
+
+  /* Photos interleaved between story sections, per the "photos carry the
+     story too, not just decorate it" brief. Same real gallery photos used
+     on the hub card, reused here at full size. Omitted entirely when a
+     story doesn't have a gallery image for that slot. */
+  .exp-photo{aspect-ratio:4/3;background:var(--card);border-radius:8px;overflow:hidden;margin:8px 0 32px;border:1px solid var(--border);}
+  .exp-photo img{width:100%;height:100%;object-fit:cover;}
 
   .quick-overview{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px;margin-bottom:36px;}
   .quick-overview h4{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:14px;}
@@ -204,6 +213,16 @@
     return '<h2>' + escapeHtml(label) + '</h2><p class="pending">This part of the story is still being written.</p>';
   }
 
+  // Renders one gallery photo as a full-width block, or nothing at all when
+  // this story doesn't have a photo for this slot yet — never a placeholder,
+  // since a missing photo here just means less visual coverage, not a gap
+  // that needs flagging like the text sections do.
+  function photoBlock(gallery, index, altText){
+    var src = gallery && gallery[index];
+    if (!src) return '';
+    return '<div class="exp-photo"><img src="' + escapeHtml(src) + '" alt="' + escapeHtml(altText || '') + '" loading="lazy"></div>';
+  }
+
   function renderExperience(exp){
     document.getElementById('page-title').textContent = (exp.title || 'Experience') + ' | NUMARU Japan';
     document.getElementById('page-description').setAttribute('content', exp.quickOverviewNote && exp.quickOverviewNote !== 'NEED INFO' ? exp.quickOverviewNote : 'A real experience NUMARU Japan shared with a traveler in Japan.');
@@ -212,9 +231,14 @@
 
     var tagsHtml = (exp.category || []).map(function(c){ return '<span class="exp-tag">' + escapeHtml(c) + '</span>'; }).join('');
 
+    // Hero comes first in the DOM per the brief (Hero -> Title/Location -> ...).
     var heroHtml = exp.heroImage
       ? '<div class="exp-hero"><img src="' + escapeHtml(exp.heroImage) + '" alt="' + escapeHtml(exp.title || '') + '" loading="eager"></div>'
       : '<div class="exp-hero placeholder">Hero photo not added yet<br>(差し替え必須 — real photo from this trip goes here)</div>';
+
+    var locationLineHtml = exp.location
+      ? '<div class="exp-location-line"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>' + escapeHtml(exp.location) + '</div>'
+      : '';
 
     // This story also exists as a NUMARU Japan YouTube video — show a CTA
     // linking out to it. Only rendered when exp.videoUrl is set.
@@ -235,13 +259,25 @@
       '</div></div>';
 
     var story = exp.story || {};
+    var gallery = exp.gallery || [];
+
+    // Story text is broken into four beats matching the brief's
+    // Introduction -> Story -> Experience/Place -> Conclusion structure,
+    // with a real gallery photo (when available) placed between each beat
+    // so photos carry part of the story rather than just decorating it.
+    var introHtml = pendingOrText('Introduction', story.opening);
+    var storyBeatHtml = pendingOrText('Who We Met', story.whoWeMet) + pendingOrText('Why We Chose This Place', story.whyThisPlace);
+    var experienceBeatHtml = pendingOrText('The Experience', story.experience) + pendingOrText('Local Details', story.localDetails);
+    var conclusionHtml = pendingOrText('Traveler Reaction', story.travelerReaction) + pendingOrText('NUMARU Perspective', story.numaruPerspective);
+
     var storyHtml =
-      pendingOrText('Who We Met', story.opening ? (story.opening + (story.whoWeMet ? ' ' + story.whoWeMet : '')) : story.whoWeMet) +
-      pendingOrText('Why We Chose This Place', story.whyThisPlace) +
-      pendingOrText('The Experience', story.experience) +
-      pendingOrText('Local Details', story.localDetails) +
-      pendingOrText('Traveler Reaction', story.travelerReaction) +
-      pendingOrText('NUMARU Perspective', story.numaruPerspective);
+      introHtml +
+      photoBlock(gallery, 0, exp.title) +
+      storyBeatHtml +
+      photoBlock(gallery, 1, exp.title) +
+      experienceBeatHtml +
+      photoBlock(gallery, 2, exp.title) +
+      conclusionHtml;
 
     var ctaHtml =
       '<div class="exp-cta">' +
@@ -251,9 +287,11 @@
       '</div>';
 
     document.getElementById('exp-content').innerHTML =
+      heroHtml +
       '<div class="exp-tags">' + tagsHtml + '</div>' +
       '<h1 class="exp-title">' + escapeHtml(exp.title || 'Untitled experience') + '</h1>' +
-      heroHtml + videoCtaHtml + qoHtml +
+      locationLineHtml +
+      qoHtml + videoCtaHtml +
       '<div class="prose">' + storyHtml + '</div>' +
       ctaHtml;
   }

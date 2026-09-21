@@ -53,9 +53,13 @@
   .card-play-badge{
     position:absolute;top:12px;right:12px;background:rgba(15,15,16,0.75);color:#fff;
     font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;
-    padding:6px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;backdrop-filter:blur(2px);
+    padding:6px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:5px;backdrop-filter:blur(2px);
   }
   .card-play-badge svg{width:11px;height:11px;fill:#fff;flex-shrink:0;}
+  /* Guide cards have no hero photo (they're general guides, not tied to a
+     real trip), so their badge sits inline above the title instead of
+     overlaid on an image — same look, static position. */
+  .card-body > .card-play-badge{position:static;background:var(--bg-alt);border:1px solid var(--border);color:var(--text-dim);margin-bottom:10px;}
   .card-tag{background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:5px 10px;border-radius:3px;letter-spacing:0.5px;white-space:nowrap;}
   .card-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px;}
   .card-body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1;}
@@ -190,6 +194,7 @@
 </footer>
 
 <script src="experiences-data.js"></script>
+<script src="guides-data.js"></script>
 <script>
   document.querySelectorAll('.nav-toggle').forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -204,39 +209,68 @@
     return div.innerHTML;
   }
 
-  // Renders only "published" Experience stories (Column > Experience Stories)
-  // from experiences-data.js. Until at least one story is published, the
-  // empty-state message below stays visible — this section never shows
-  // fake/placeholder cards as if they were real articles.
-  (function renderExperienceCards(){
+  // Renders "published" cards from two sources into one grid:
+  // - Experience Stories (experiences-data.js) — real guided trips
+  // - Guides (guides-data.js) — general SEO/listicle guides, not tied to a
+  //   real trip, used to bring in search traffic (see
+  //   numaru-japan-traffic-content-prompt.md for the strategy behind these)
+  // Until at least one card exists across both sources, the empty-state
+  // message below stays visible — this section never shows fake/placeholder
+  // cards as if they were real content.
+  (function renderColumnCards(){
     var grid = document.getElementById('column-grid');
     var emptyState = document.querySelector('.empty-state');
-    var list = (window.EXPERIENCES || []).filter(function(e){ return e.status === 'published'; });
+
+    var experienceCards = (window.EXPERIENCES || [])
+      .filter(function(e){ return e.status === 'published'; })
+      .map(function(exp){
+        return {
+          title: exp.title,
+          summary: (exp.quickOverviewNote && exp.quickOverviewNote !== 'NEED INFO') ? exp.quickOverviewNote : '',
+          img: exp.heroImage || '',
+          tag: (exp.category && exp.category[0]) || 'Experience',
+          meta: exp.location,
+          href: 'experience.html?slug=' + encodeURIComponent(exp.slug),
+          // Some stories also exist as a NUMARU Japan YouTube video. The card
+          // still opens the written article — the video link lives inside
+          // experience.html itself — but we show a badge so people know a
+          // video is attached before they click.
+          badge: exp.videoUrl
+            ? '<span class="card-play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Video inside</span>'
+            : ''
+        };
+      });
+
+    var guideCards = (window.GUIDES || [])
+      .filter(function(g){ return g.status === 'published'; })
+      .map(function(guide){
+        return {
+          title: guide.title,
+          summary: guide.metaDescription || '',
+          img: guide.heroImage || '',
+          tag: (guide.tags && guide.tags[0]) || 'Guide',
+          meta: guide.segmentLabel || 'Guide',
+          href: 'guide.html?slug=' + encodeURIComponent(guide.slug),
+          badge: '<span class="card-play-badge card-guide-badge">Guide</span>'
+        };
+      });
+
+    var list = experienceCards.concat(guideCards);
 
     if (!grid || list.length === 0) return; // keep empty-state as-is
 
-    grid.innerHTML = list.map(function(exp){
-      var tag = (exp.category && exp.category[0]) || 'Experience';
-      var summary = (exp.quickOverviewNote && exp.quickOverviewNote !== 'NEED INFO') ? exp.quickOverviewNote : '';
-      var img = exp.heroImage || '';
-      // Some stories also exist as a NUMARU Japan YouTube video. The card
-      // still opens the written article like every other story — the video
-      // is linked out from inside experience.html itself — but we show a
-      // small badge here so people know a video is attached before they click.
-      var isVideo = !!exp.videoUrl;
-      var playBadge = isVideo
-        ? '<span class="card-play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Video inside</span>'
-        : '';
+    grid.innerHTML = list.map(function(card){
       return (
         '<div class="card">' +
-          '<a href="experience.html?slug=' + encodeURIComponent(exp.slug) + '" class="card-link">' +
-            (img ? '<div class="card-img"><img src="' + escapeHtml(img) + '" alt="' + escapeHtml(exp.title) + '" loading="lazy">' + playBadge + '</div>' : '') +
+          '<a href="' + escapeHtml(card.href) + '" class="card-link">' +
+            (card.img ? '<div class="card-img"><img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.title) + '" loading="lazy">' + card.badge + '</div>' : '') +
             '<div class="card-body">' +
-              '<h3>' + escapeHtml(exp.title) + '</h3>' +
-              (summary ? '<p>' + escapeHtml(summary) + '</p>' : '') +
+              (!card.img ? card.badge : '') +
+              '<h3>' + escapeHtml(card.title) + '</h3>' +
+              (card.summary ? '<p>' + escapeHtml(card.summary) + '</p>' : '') +
               '<div class="card-footer">' +
-                '<div class="card-meta">' + escapeHtml(exp.location) + '</div>' +
-                '<span class="card-tag">' + escapeHtml(tag) + '</span>' +
+                '<div class="card-meta">' + escapeHtml(card.meta) + '</div>' +
+                '<span class="card-tag">' + escapeHtml(card.tag) + '</span>' +
               '</div>' +
             '</div>' +
           '</a>' +

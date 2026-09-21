@@ -21,6 +21,14 @@
  * - CTA always points to Instagram DM or an internal site link — never a
  *   confirmed booking/price flow.
  *
+ * PHOTOS: Guides are not tied to a real NUMARU trip, so unlike Experience
+ * Stories (which use real trip photos), Guide heroImages are sourced from
+ * Unsplash (free-to-use license) and picked to genuinely match each guide's
+ * content — not generic "Japan-ish" filler. Each Guide's photo is unique
+ * across the whole site: none of them duplicate a real Experience Story
+ * photo or another Guide's photo, so a returning visitor never sees the
+ * same image twice.
+ *
  * KEYWORD DISCLAIMER: primaryKeyword / secondaryKeywords below are working
  * hypotheses based on general long-tail search patterns and season, NOT
  * pulled from live Search Console / Google Trends data (no such connector
@@ -30,12 +38,10 @@
 window.GUIDES = [
   {
     slug: "cheap-eats-tokyo-under-1000-yen",
-    // Pulled back to draft: no real NUMARU photo matches this specific list
-    // (it doesn't overlap with a documented trip like the others below), and
-    // we don't use generic stock "Japan-ish" photos on this site. Re-publish
-    // once we have real photos of an actual cheap-eats outing, or narrow the
-    // article to a specific real place we've photographed.
-    status: "draft",
+    // Web photo (Unsplash, free to use): a lantern-lit izakaya/restaurant
+    // alley — matches the shotengai/standing-counter content of this guide
+    // without duplicating any photo used elsewhere on the site.
+    status: "published",
     segment: "budget-2030",
     segmentLabel: "For budget-conscious travelers",
     primaryKeyword: "cheap eats tokyo under 1000 yen",
@@ -43,7 +49,7 @@ window.GUIDES = [
     category: ["Local Life", "Tokyo"],
     title: "Where a Full Meal in Tokyo Still Costs Under ¥1,000 (2026 Guide)",
     metaDescription: "Tokyo doesn't have to be expensive. Here are 5 real neighborhoods where a full, satisfying meal still costs under ¥1,000 — no tourist markup required.",
-    heroImage: null,
+    heroImage: "https://images.unsplash.com/photo-1759200263223-89a844fb864f?auto=format&fit=crop&w=1600&q=80",
     hook: "Tokyo has a reputation for being expensive, and parts of it are. But the neighborhoods where locals actually eat on a weekday lunch break tell a different story — standing soba counters, market alleys, and convenience-store-adjacent chains where a full meal still comes in under ¥1,000. As more travelers plan Japan trips around tighter budgets in 2026, these are the areas worth knowing before you land.",
     items: [
       {
@@ -83,16 +89,15 @@ window.GUIDES = [
     category: ["Culture"],
     title: "5 Tokyo Shrines Locals Visit That Most Tourists Walk Right Past",
     metaDescription: "Skip the crowds at Senso-ji. These 5 shrines and quiet cultural spots in Tokyo are where locals actually go — and most visitors never hear about them.",
-    // Real photo reuse: this is the same Yushima Tenmangu we visited and
-    // photographed for the Akihabara & Ueno experience story — genuinely
-    // the place this item talks about, not a generic stand-in.
-    heroImage: "akihabara-hero-yushima-shrine.jpg",
+    // Web photo (Unsplash, free to use): a quiet forested torii, distinct
+    // from the real Yushima Tenmangu photos used on the Akihabara & Ueno
+    // experience story so the same image isn't duplicated across pages.
+    heroImage: "https://images.unsplash.com/photo-1549124151-844d2a02fe9a?auto=format&fit=crop&w=1600&q=80",
     hook: "Tokyo's best-known shrines and temples are worth seeing, but they're also the reason so many visitors leave feeling like they experienced Japan through a crowd of other tourists' shoulders. The quieter alternative is real, and it's not hidden — it's just not marketed. Here are five spots that reward a little extra walking.",
     items: [
       {
         heading: "Yushima Tenmangu, Ueno",
-        body: "Yushima Tenmangu is a shrine known for its wisteria and plum blossoms, a short walk from Ueno's busier streets and usually far quieter than the shrines most first-time visitors get taken to. Rows of white lanterns and red banners make it visually striking without needing a festival day to justify the visit. We actually walked a small group through here as part of a longer afternoon — you can read that story in our Akihabara & Ueno column piece.",
-        photo: "akihabara-shrine-selfie.jpg"
+        body: "Yushima Tenmangu is a shrine known for its wisteria and plum blossoms, a short walk from Ueno's busier streets and usually far quieter than the shrines most first-time visitors get taken to. Rows of white lanterns and red banners make it visually striking without needing a festival day to justify the visit. We actually walked a small group through here as part of a longer afternoon — you can read that story in our Akihabara & Ueno column piece."
       },
       {
         heading: "Neighborhood shrines with no name recognition",
@@ -127,15 +132,15 @@ window.GUIDES = [
     category: ["Nature", "Day Trip"],
     title: "5 Easy Day Trips From Tokyo When You Just Need to See Trees",
     metaDescription: "You don't need a rental car to get out of Tokyo. These 5 nature day trips are reachable by train and worth the full day away from the city.",
-    // Real photo reuse: the actual Nagatoro riverside group shot from our
-    // real 10-hour Nagatoro & Kawagoe trip — this is the first item below.
-    heroImage: "nagatoro-hero-riverside-group.jpg",
+    // Web photo (Unsplash, free to use): a river running through lush
+    // countryside — distinct from the real Nagatoro photos used on the
+    // Nagatoro & Kawagoe experience story so the image isn't duplicated.
+    heroImage: "https://images.unsplash.com/photo-1698794503338-a61fc2d1929e?auto=format&fit=crop&w=1600&q=80",
     hook: "A week of neon and train announcements is enough to make anyone want a day that's mostly sky, trees, and water. The good news is that real countryside isn't far from Tokyo, and most of it doesn't require a car — just a train ticket and a full day.",
     items: [
       {
         heading: "Nagatoro, Saitama",
-        body: "Nagatoro sits about two hours from central Tokyo and trades the city entirely for river valleys and the iwadatami — long, flat rock formations that line the Arakawa river. It's a full-day trip rather than a half-day detour, but that's part of the appeal: enough time to actually slow down rather than rush between two stops. We took a small group here for a full ten-hour day — the real story, photos included, is in our Nagatoro column piece.",
-        photo: "nagatoro-iwadatami-landscape.jpg"
+        body: "Nagatoro sits about two hours from central Tokyo and trades the city entirely for river valleys and the iwadatami — long, flat rock formations that line the Arakawa river. It's a full-day trip rather than a half-day detour, but that's part of the appeal: enough time to actually slow down rather than rush between two stops. We took a small group here for a full ten-hour day — the real story, photos included, is in our Nagatoro column piece."
       },
       {
         heading: "Kawagoe, Saitama",
@@ -170,9 +175,10 @@ window.GUIDES = [
     category: ["Night Tokyo", "Music"],
     title: "5 Tokyo Night Scenes That Have Nothing to Do With Shibuya Crossing",
     metaDescription: "Shibuya Crossing at night is a photo op. These 5 Tokyo night scenes are where actual subcultures gather — car meets, underground music, and more.",
-    // Real photo reuse: the actual Daikoku PA video thumbnail — the first
-    // item below is literally this trip, filmed and published by NUMARU.
-    heroImage: "https://img.youtube.com/vi/y9X0C1CJ8w8/maxresdefault.jpg",
+    // Web photo (Unsplash, free to use): red lanterns lit up in a night
+    // alley — distinct from the Daikoku PA video thumbnail already used as
+    // the hero on the Daikoku experience story, so it isn't duplicated.
+    heroImage: "https://images.unsplash.com/photo-1630615088688-9d62f18a41fc?auto=format&fit=crop&w=1600&q=80",
     hook: "Shibuya Crossing at night is worth seeing once, but it's a photo op more than an experience. The more interesting version of Tokyo after dark happens in scattered, specific places where a genuine subculture — not a tourist crowd — actually gathers.",
     items: [
       {
@@ -204,13 +210,10 @@ window.GUIDES = [
   },
   {
     slug: "tokyo-first-time-visitor-questions-answered",
-    // Pulled back to draft: this is general first-timer Q&A, not tied to a
-    // specific photographed place or trip, so there's no real NUMARU photo
-    // that genuinely matches it — and we don't use generic stock "Japan-ish"
-    // photos on this site. Re-publish once we have a real photo that fits
-    // (e.g. a candid shot of a first-time traveler somewhere in Tokyo), or
-    // narrow this to a specific real outing we've documented.
-    status: "draft",
+    // Web photo (Unsplash, free to use): a bright daytime street crossing
+    // with real pedestrians — matches the general first-timer/orientation
+    // tone of this guide without duplicating any photo used elsewhere.
+    status: "published",
     segment: "first-timer-family",
     segmentLabel: "For first-time visitors",
     primaryKeyword: "tokyo first time visitor tips 2026",
@@ -218,7 +221,7 @@ window.GUIDES = [
     category: ["Tokyo", "Local Life"],
     title: "5 Things First-Time Visitors to Tokyo Always Ask Us, Answered Honestly",
     metaDescription: "The honest answers to what first-time visitors to Tokyo actually ask us before landing — no exaggeration, no scare tactics.",
-    heroImage: null,
+    heroImage: "https://images.unsplash.com/photo-1560360482-d5588f13d530?auto=format&fit=crop&w=1600&q=80",
     hook: "Every first-time visitor to Tokyo asks some version of the same handful of questions before they land. Most travel content either overpromises (\"Tokyo will change your life\") or overwarns (\"you'll get lost and no one will help you\"). Here's what we actually tell people.",
     items: [
       {
